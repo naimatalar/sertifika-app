@@ -22,7 +22,9 @@
     "react-native-safe-area-context": "^0.7.3",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/material-top-tabs": "^5.2.5",
-    "@react-navigation/material-bottom-tabs": "^5.2.5"
+    "@react-navigation/material-bottom-tabs": "^5.2.5",
+    "@react-native-community/datetimepicker": "6.2.0",
+    "react-native-web": "~0.18.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

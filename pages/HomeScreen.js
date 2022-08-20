@@ -9,11 +9,49 @@ import {
   Text,
   SafeAreaView,
 } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const HomeScreen = ({ navigation }) => {
+  const [startDate, setStartDate] = React.useState(new Date())
+  const [endDate, setEndDate] = React.useState(new Date())
+
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, padding: 16 }}>
+    <SafeAreaView style={{ flex: 1 }}>  
+
+      <View style={{ flexDirection: "col", flex: 1, marginTop: 5 }}>
+    
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: 'center' }}>
+          <View style={{ flex: 5, flexDirection: "column" }} >
+
+            <DateTimePicker style={{ flex: 2, ali: "center" }} value={startDate} onChange={(e, d) => { setStartDate(d); }}></DateTimePicker>
+          </View>
+          <View style={{ flexDirection: "row",flex:1 ,alignItems:"center"}}>
+            <Text style={{flex:1,textAlign:"center"}}>
+            <MaterialCommunityIcons
+              name="arrow-left-right-bold"
+              size={20}
+            />
+
+            </Text>
+
+          </View>
+          <View style={{ flex: 5, flexDirection: "column" }} >
+
+            <DateTimePicker style={{ flex: 2, alignContent: "center", flexDirection: "row" }} value={startDate} onChange={(e, d) => { setStartDate(d); }}></DateTimePicker>
+          </View>
+
+          <TouchableOpacity style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 3,   marginLeft: 10,marginRight:2 }}>
+            <MaterialCommunityIcons
+              name="magnify-expand"
+              size={20}
+            />
+            <Text> Ara</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <View style={{ flex: 11, padding: 16 }}>
         <View
           style={{
             flex: 1,
