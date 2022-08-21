@@ -22,9 +22,9 @@ function HomeStack() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: { backgroundColor: '#42f44b' },
+        headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
+        headerTitleStyle: { fontWeight: 'bold'},
       }}>
       <Stack.Screen
         name="Home"
@@ -45,7 +45,7 @@ function SettingsStack() {
     <Stack.Navigator
       initialRouteName="Settings"
       screenOptions={{
-        headerStyle: { backgroundColor: '#42f44b' },
+        headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
@@ -73,7 +73,7 @@ function PersonStack() {
     <Stack.Navigator
       initialRouteName="Person"
       screenOptions={{
-        headerStyle: { backgroundColor: '#42f44b' },
+        headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
@@ -102,7 +102,7 @@ function ProductStack() {
     <Stack.Navigator
       initialRouteName="Product"
       screenOptions={{
-        headerStyle: { backgroundColor: '#42f44b' },
+        headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
@@ -131,7 +131,7 @@ function BarcodeStack() {
     <Stack.Navigator
       initialRouteName="Barcode"
       screenOptions={{
-        headerStyle: { backgroundColor: '#42f44b' },
+        headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
@@ -202,7 +202,7 @@ function App() {
                 name="barcode"
                 color={color}
                 size={40}
-                style={{backgroundColor:"#eeffff",padding:3,marginTop:-20,borderRadius:"10px",borderColor:"#3f51b5",borderWidth:1,borderStyle:"dashed",overflow:"hidden",shadowColor: "#0041e4",
+                style={{backgroundColor:"#eeffff",padding:3,marginTop:-20,borderRadius:10,borderColor:"#3f51b5",borderWidth:1,borderStyle:"dashed",overflow:"hidden",shadowColor: "#0041e4",
                 shadowOffset: {
                   width: 0,
                   height: 6,

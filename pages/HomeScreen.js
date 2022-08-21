@@ -8,50 +8,132 @@ import {
   View,
   Text,
   SafeAreaView,
+  Button,
 } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const HomeScreen = ({ navigation }) => {
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
+  const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
+  const [isDateePickerVisible, setDateePickerVisibility] = React.useState(false);
+
+  const showsDatePicker = () => {
+    setDatesPickerVisibility(true);
+  };
+
+  const hidesDatePicker = () => {
+    setDatesPickerVisibility(false);
+  };
+
+  const handlesConfirm = (date) => {
+    setStartDate(date)
+    hidesDatePicker();
+  };
+  const showeDatePicker = () => {
+    setDateePickerVisibility(true);
+  };
+
+  const hideeDatePicker = () => {
+    setDateePickerVisibility(false);
+  };
+
+  const handleeConfirm = (date) => {
+    setEndDate(date)
+    hideeDatePicker();
+  };
 
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>  
+    <SafeAreaView style={{ flex: 1 }}>
 
-      <View style={{ flexDirection: "col", flex: 1, marginTop: 5 }}>
-    
-        <View style={{ flex: 1, flexDirection: "row", justifyContent: 'center' }}>
-          <View style={{ flex: 5, flexDirection: "column" }} >
 
-            <DateTimePicker style={{ flex: 2, ali: "center" }} value={startDate} onChange={(e, d) => { setStartDate(d); }}></DateTimePicker>
+      <View style={{ flex: 3, flexDirection: "column", justifyContent: 'center', borderBottomWidth: 1, paddingBottom: 50,backgroundColor:"#bcbcbc" }}>
+        <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20 ,marginBottom:10}}><Text style={{ color: "#393185",  textAlign: "center",fontWeight:"bold",marginTop:20}}>Tarihe Göre Sertifika/Rapor Arama </Text></View>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}> 
+            <Text style={{marginBottom:5}}>Başlangı</Text> 
+            <TouchableOpacity onPress={showsDatePicker} style={styles.datetimeP} >
+              <MaterialCommunityIcons
+                name="calendar"
+                size={25}
+              />
+              <Text >
+                {startDate.getDate() + "/" + startDate.getMonth() + "/" + startDate.getFullYear()}
+              </Text>
+            </TouchableOpacity>
+
           </View>
-          <View style={{ flexDirection: "row",flex:1 ,alignItems:"center"}}>
-            <Text style={{flex:1,textAlign:"center"}}>
-            <MaterialCommunityIcons
-              name="arrow-left-right-bold"
-              size={20}
-            />
+          {/* <View style={{ flex: 1, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+            <Text>
+              <MaterialCommunityIcons
+                name="arrow-left-right-bold"
+                size={20}
+              />
 
             </Text>
+          </View> */}
+
+          <View style={{ flex: 2, paddingLeft: 10, paddingRight: 10 }} >
+            <Text style={{marginBottom:5}}>Bitiş</Text>
+            <TouchableOpacity style={styles.datetimeP} onPress={showeDatePicker} >
+              <MaterialCommunityIcons
+                name="calendar"
+                size={25}
+              />
+              <Text >
+
+                {endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear()}
+              </Text>
+            </TouchableOpacity>
 
           </View>
-          <View style={{ flex: 5, flexDirection: "column" }} >
+          <View style={{ flex: 2, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "row" }}>
 
-            <DateTimePicker style={{ flex: 2, alignContent: "center", flexDirection: "row" }} value={startDate} onChange={(e, d) => { setStartDate(d); }}></DateTimePicker>
+            <TouchableOpacity style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 1, height: 45, marginTop: 20, paddingLeft: 4, paddingRight: 4 ,backgroundColor:"#d8672b",borderRadius:5,}}>
+              <View style={{ flexDirection: "row" }}>
+                <MaterialCommunityIcons
+                  name="magnify-expand"
+                  size={20}
+                  color="white"
+                />
+                <Text style={{fontWeight:"bold",color:"white" }}> Ara</Text>
+              </View>
+
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <TouchableOpacity style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 3,   marginLeft: 10,marginRight:2 }}>
-            <MaterialCommunityIcons
-              name="magnify-expand"
-              size={20}
-            />
-            <Text> Ara</Text>
-          </TouchableOpacity>
+        <DateTimePickerModal
+          isVisible={isDatesPickerVisible}
+          mode="date"
+          onConfirm={handlesConfirm}
+          onCancel={hidesDatePicker}
+          confirmTextIOS="Seç"
+          cancelTextIOS='Vazgeç'
+          locale='tr-TR'
+        />
+        <DateTimePickerModal
+          isVisible={isDateePickerVisible}
+          mode="date"
+          onConfirm={handleeConfirm}
+          onCancel={hideeDatePicker}
+          confirmTextIOS="Seç"
+          cancelTextIOS='Vazgeç'
+          locale='tr-TR'
+        />
+        
+      </View>
+
+      <View style={{ flexDirection: "column", flex: 2, marginTop: 1 }}>
+
+        <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
+
+
         </View>
       </View>
-      <View style={{ flex: 11, padding: 16 }}>
+      <View style={{ flex: 14, padding: 16 }}>
         <View
           style={{
             flex: 1,
@@ -98,5 +180,18 @@ const styles = StyleSheet.create({
     width: 300,
     marginTop: 16,
   },
+  datetimeP: {
+    borderWidth: 1,
+    borderStyle:"dotte",
+    borderColor: "#26418f",
+    backgroundColor: "#8e99f3",
+    padding: 8,
+    justifyContent: "space-around",
+    borderRadius: 5,
+    flexDirection: "row",
+    alignItems: "center"
+
+
+  }
 });
 export default HomeScreen;

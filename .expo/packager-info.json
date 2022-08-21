@@ -1,4 +1,10 @@
 {
-  "expoServerPort": 19000,
-  "packagerPort": 19000
+  "expoServerPort": 19001,
+  "packagerPort": 19001,
+  "packagerPid": null,
+  "expoServerNgrokUrl": "https://z6-gus.naimatalar.sertifika-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.z6-gus.naimatalar.sertifika-app.exp.direct",
+  "ngrokPid": 21916,
+  "webpackServerPort": null,
+  "devToolsPort": 19003
 }
