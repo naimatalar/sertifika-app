@@ -12,12 +12,15 @@ import {
 } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AxiosPost } from '../crud/crud';
 
 const HomeScreen = ({ navigation }) => {
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
   const [isDateePickerVisible, setDateePickerVisibility] = React.useState(false);
+  const [pageNumber, setPageNumber] = React.useState(1);
+  const [listData, setListData] = React.useState([]);
 
   const showsDatePicker = () => {
     setDatesPickerVisibility(true);
@@ -42,6 +45,18 @@ const HomeScreen = ({ navigation }) => {
   const handleeConfirm = (date) => {
     setEndDate(date)
     hideeDatePicker();
+  }; 
+  const getAllData = async () => {
+    
+    var d = await AxiosPost("Document/GetAll", {
+      pageNumber: pageNumber, 
+      pageSize: 5,
+      data: { startDate: startDate, endDate: endDate }
+    }).then(x=>{return x.data}).catch(x=>{return x});
+    setListData(d.data)
+    console.log(d)
+
+
   };
 
 
@@ -49,11 +64,11 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
 
 
-      <View style={{ flex: 3, flexDirection: "column", justifyContent: 'center', borderBottomWidth: 1, paddingBottom: 50,backgroundColor:"#bcbcbc" }}>
-        <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20 ,marginBottom:10}}><Text style={{ color: "#393185",  textAlign: "center",fontWeight:"bold",marginTop:20}}>Tarihe Göre Sertifika/Rapor Arama </Text></View>
+      <View style={{ flex: 3, flexDirection: "column", justifyContent: 'center', borderBottomWidth: 1, paddingBottom: 50, backgroundColor: "#bcbcbc" }}>
+        <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}> 
-            <Text style={{marginBottom:5}}>Başlangı</Text> 
+          <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}>
+            <Text style={{ marginBottom: 5 }}>Başlangı</Text>
             <TouchableOpacity onPress={showsDatePicker} style={styles.datetimeP} >
               <MaterialCommunityIcons
                 name="calendar"
@@ -76,7 +91,7 @@ const HomeScreen = ({ navigation }) => {
           </View> */}
 
           <View style={{ flex: 2, paddingLeft: 10, paddingRight: 10 }} >
-            <Text style={{marginBottom:5}}>Bitiş</Text>
+            <Text style={{ marginBottom: 5 }}>Bitiş</Text>
             <TouchableOpacity style={styles.datetimeP} onPress={showeDatePicker} >
               <MaterialCommunityIcons
                 name="calendar"
@@ -91,14 +106,16 @@ const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 2, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "row" }}>
 
-            <TouchableOpacity style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 1, height: 45, marginTop: 20, paddingLeft: 4, paddingRight: 4 ,backgroundColor:"#d8672b",borderRadius:5,}}>
+            <TouchableOpacity
+              onPress={() => { getAllData() }}
+              style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 1, height: 45, marginTop: 20, paddingLeft: 4, paddingRight: 4, backgroundColor: "#d8672b", borderRadius: 5, }}>
               <View style={{ flexDirection: "row" }}>
                 <MaterialCommunityIcons
                   name="magnify-expand"
                   size={20}
                   color="white"
                 />
-                <Text style={{fontWeight:"bold",color:"white" }}> Ara</Text>
+                <Text style={{ fontWeight: "bold", color: "white" }}> Ara</Text>
               </View>
 
             </TouchableOpacity>
@@ -123,7 +140,7 @@ const HomeScreen = ({ navigation }) => {
           cancelTextIOS='Vazgeç'
           locale='tr-TR'
         />
-        
+
       </View>
 
       <View style={{ flexDirection: "column", flex: 2, marginTop: 1 }}>
@@ -182,7 +199,7 @@ const styles = StyleSheet.create({
   },
   datetimeP: {
     borderWidth: 1,
-    borderStyle:"dotte",
+    borderStyle: "dotted",
     borderColor: "#26418f",
     backgroundColor: "#8e99f3",
     padding: 8,
