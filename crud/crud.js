@@ -1,6 +1,6 @@
 import Axios from "axios"
-const baseUrl = 'http://10.0.2.2:45457/api/';
-
+// const baseUrl = 'http://10.0.2.2:45457/api/';
+ const baseUrl = "http://10.35.35.15:45456/api/";
 // const baseUrl='http://bukalemun.kale.com.tr';
 
 

@@ -9,6 +9,8 @@ import {
   Text,
   SafeAreaView,
   Button,
+  ScrollView,
+  Image,
 } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -45,18 +47,20 @@ const HomeScreen = ({ navigation }) => {
   const handleeConfirm = (date) => {
     setEndDate(date)
     hideeDatePicker();
-  }; 
+  };
   const getAllData = async () => {
-    
+
     var d = await AxiosPost("Document/GetAll", {
-      pageNumber: pageNumber, 
-      pageSize: 5,
-      data: { startDate: startDate, endDate: endDate }
-    }).then(x=>{return x.data}).catch(x=>{return x});
-    setListData(d.data)
-    console.log(d)
+      "pageNumber": 1,
+      "pageSize": 15,
+      "startDate": startDate.toISOString(),
+      "endDate": endDate.toISOString()
+    }).then(x => { return x.data }).catch(x => { return x });
 
+    setListData(d.data.list)
+    //  setPageNumber(da.data.pageNumber)
 
+    console.log(d.data.list)
   };
 
 
@@ -143,47 +147,63 @@ const HomeScreen = ({ navigation }) => {
 
       </View>
 
-      <View style={{ flexDirection: "column", flex: 2, marginTop: 1 }}>
 
-        <View style={{ flex: 1, flexDirection: "column", justifyContent: 'center' }}>
+      <View style={{ flex: 14, padding: 16, paddingTop: 0 }}>
+        <ScrollView>
 
 
-        </View>
-      </View>
-      <View style={{ flex: 14, padding: 16 }}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
+          <View
             style={{
-              fontSize: 25,
-              textAlign: 'center',
-              marginBottom: 16,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}>
-            You are on Home Screen
-          </Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              navigation.navigate('SettingsStack', { screen: 'Settings' })
-            }>
-            <Text>Go to settng Tab</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate('Details')}>
-            <Text>Open Details Screen</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={{ fontSize: 18, textAlign: 'center', color: 'grey' }}>
-          React Native Bottom Navigation
-        </Text>
-        <Text style={{ fontSize: 16, textAlign: 'center', color: 'grey' }}>
-          www.aboutreact.com
-        </Text>
+            {listData.map((item, key) => {
+
+              var fppName = "";
+              if (item.companyName != null) {
+                fppName = item.companyName
+              }
+              if (item.personName != " ") {
+                fppName = item.personName
+              }
+              if (item.productName != null) {
+                fppName = item.productName
+              }
+              var dimgN = item.documnetKind;
+              debugger
+              return (
+
+                <TouchableOpacity
+                  key={key}
+                  style={styles.button}
+                  onPress={() =>
+                    navigation.navigate('SettingsStack', { screen: 'Settings' })
+                  }>
+
+                  <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                    <Image style={{ width: 20, height: 20, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
+                      (dimgN == 1 && require("../assets/pimage1.png") || dimgN == 2 && require("../assets/pimage2.png") || dimgN == 3 && require("../assets/pimage3.png"))
+                    } />
+
+                    <Text style={{ flex: 4 }}>{fppName}</Text>
+                    <Text style={{ flex: 2 }}>{item.documentDate}</Text>
+                  </View>
+
+                  <View style={{ flexDirection: "row", justifyContent: "Center" }}>
+                    <Text style={{fontSize:18}}>
+                      {item.name}
+                    </Text>
+                  </View>
+
+                </TouchableOpacity>
+              )
+            })}
+
+
+          </View>
+
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -193,15 +213,16 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
-    padding: 10,
-    width: 300,
-    marginTop: 16,
+    padding: 7,
+    width: "100%",
+    marginTop: 10,
+    flexDirection: "column"
   },
   datetimeP: {
     borderWidth: 1,
     borderStyle: "dotted",
     borderColor: "#26418f",
-    backgroundColor: "#8e99f3",
+    backgroundColor: "white",
     padding: 8,
     justifyContent: "space-around",
     borderRadius: 5,

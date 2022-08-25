@@ -161,7 +161,7 @@ function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="SettingsStack"
+        initialRouteName="HomeStack"
         tabBarOptions={{
           activeTintColor: '#ffa270',
         }}>
