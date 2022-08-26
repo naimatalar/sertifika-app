@@ -3,8 +3,22 @@
 
 import * as React from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
+import { AxiosPost } from '../crud/crud';
 
-const DetailsScreen = () => {
+const DetailsScreen = (props) => {
+  React.useEffect(() => {
+
+    start()
+  }, [])
+  const start = async () => {
+
+
+    var d = await AxiosPost("Document/GetByObjectIdMobil", {
+      "documentKind": props.route.params.documentKind,
+      "objectId": props.route.params.objectId,
+    }).then(x => { return x.data }).catch(x => { return x });
+    debugger
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, padding: 16 }}>

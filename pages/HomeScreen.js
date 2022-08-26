@@ -51,16 +51,15 @@ const HomeScreen = ({ navigation }) => {
   const getAllData = async () => {
 
     var d = await AxiosPost("Document/GetAll", {
-      "pageNumber": 1,
+      "pageNumber": 1, 
       "pageSize": 15,
       "startDate": startDate.toISOString(),
       "endDate": endDate.toISOString()
     }).then(x => { return x.data }).catch(x => { return x });
-
+    
     setListData(d.data.list)
-    //  setPageNumber(da.data.pageNumber)
 
-    console.log(d.data.list)
+    console.log(d)
   };
 
 
@@ -171,32 +170,39 @@ const HomeScreen = ({ navigation }) => {
                 fppName = item.productName
               }
               var dimgN = item.documnetKind;
-              debugger
+              
               return (
 
-                <TouchableOpacity
+                <View
                   key={key}
                   style={styles.button}
-                  onPress={() =>
-                    navigation.navigate('SettingsStack', { screen: 'Settings' })
-                  }>
+                  // onPress={() =>navigation.navigate('SettingsStack', { screen: 'Settings' })}
+                  >
 
                   <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                    <Image style={{ width: 20, height: 20, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
+                    <Image style={{ width: 25, height: 25, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
                       (dimgN == 1 && require("../assets/pimage1.png") || dimgN == 2 && require("../assets/pimage2.png") || dimgN == 3 && require("../assets/pimage3.png"))
                     } />
 
                     <Text style={{ flex: 4 }}>{fppName}</Text>
-                    <Text style={{ flex: 2 }}>{item.documentDate}</Text>
+                    <Text style={{ flex: 2,fontStyle:"italic",fontSize:12,textAlign:"right",color:"grey" }}>{item.documentDate}</Text>
                   </View>
 
-                  <View style={{ flexDirection: "row", justifyContent: "Center" }}>
-                    <Text style={{fontSize:18}}>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between" ,paddingRight:20,paddingLeft:14}}>
+                    <Text  style={{flex:1}}>
                       {item.name}
                     </Text>
+                    <TouchableOpacity style={{fontSize:18,flex:1,alignSelf:"flex-end"}} onPress={() =>navigation.navigate("Details",{documnetKind:dimgN,objectId:item.id})}>
+                    <MaterialCommunityIcons
+                  name="magnify"
+                  size={20}
+                  color="black"
+                  style={{textAlign:'right'}}
+                />
+                    </TouchableOpacity>
                   </View>
 
-                </TouchableOpacity>
+                </View>
               )
             })}
 
@@ -212,11 +218,15 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: "white",
     padding: 7,
     width: "100%",
     marginTop: 10,
-    flexDirection: "column"
+    flexDirection: "column",
+    borderRadius:10,
+    borderColor:'#DDDDDD',
+    borderStyle:"solid",
+    borderWidth:1
   },
   datetimeP: {
     borderWidth: 1,
@@ -228,7 +238,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center"
-
+    
 
   }
 });
