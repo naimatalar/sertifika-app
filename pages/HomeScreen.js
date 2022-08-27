@@ -59,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
     
     setListData(d.data.list)
 
-    console.log(d)
+   
   };
 
 
