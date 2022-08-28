@@ -21,8 +21,40 @@ export const LGWord = {
     Login: {
         en: { Login: 'Login' },
         tr: { Login: 'Giriş' },
+    },
+    PressForDetail: {
+        en: { PressForDetail: 'Pres For Detail' },
+        tr: { PressForDetail: 'Detay İçin Dokunun' },
+    },
+    ExpireDate: {
+        en: { ExpireDate: 'Expire Date' },
+        tr: { ExpireDate: 'Geçerlilik Tarihi' },
+    },
+    DocumentDate: {
+        en: { DocumentDate: 'Document Date' },
+        tr: { DocumentDate: 'Döküman Tarihi' },
+    },
+    Report: {
+        en: { Report: 'Report' },
+        tr: { Report: 'Rapor' },
+    },
+    Certificate: {
+        en: { Certificate: 'Certificate' },
+        tr: { Certificate: 'Sertifika' },
+    },
+    DocumentNo: {
+        en: { DocumentNo: 'Documnet No' },
+        tr: { DocumentNo: 'Dömüman No' },
+    },
+    Attachments: {
+        en: { Attachments: 'Attachments' },
+        tr: { Attachments: 'Dosya Ekleri' },
+    },
+    Download: {
+        en: { Download: 'Download' },
+        tr: { Download: 'İndir' },
     }
-    
+
 
 };
 

@@ -23,6 +23,10 @@ const HomeScreen = ({ navigation }) => {
   const [isDateePickerVisible, setDateePickerVisibility] = React.useState(false);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [listData, setListData] = React.useState([]);
+  const [transData, setTransData] = React.useState(false);
+  const [totalData, setTotalData] = React.useState(0);
+  const [loadingDAta, setLoadingData] = React.useState(false);
+
 
   const showsDatePicker = () => {
     setDatesPickerVisibility(true);
@@ -48,27 +52,43 @@ const HomeScreen = ({ navigation }) => {
     setEndDate(date)
     hideeDatePicker();
   };
-  const getAllData = async () => {
-
+  const getAllData = async (first = true) => {
+    setTransData(true)
     var d = await AxiosPost("Document/GetAll", {
-      "pageNumber": 1, 
-      "pageSize": 15,
+      "pageNumber": pageNumber,
+      "pageSize": 7,
       "startDate": startDate.toISOString(),
       "endDate": endDate.toISOString()
     }).then(x => { return x.data }).catch(x => { return x });
-    
-    setListData(d.data.list)
+    var ll = listData;
+    setTotalData(d.data.totalCount)
+    d.data.list.forEach(element => {
+      ll.push(element)
+    });
+    if (first) {
+      setListData(d.data.list)
 
-   
+    } else {
+      setListData(ll)
+
+    }
+
+    setTransData(false)
   };
 
+
+  const scrollBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom;
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
 
 
-      <View style={{ flex: 3, flexDirection: "column", justifyContent: 'center', borderBottomWidth: 1, paddingBottom: 50, backgroundColor: "#bcbcbc" }}>
-        <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View>
+      <View style={{ flex: 2, flexDirection: "column", justifyContent: 'center', paddingBottom: 30, paddingTop: 20, backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid" }}>
+        {/* <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View> */}
         <View style={{ flexDirection: 'row' }}>
           <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}>
             <Text style={{ marginBottom: 5 }}>Başlangı</Text>
@@ -110,7 +130,7 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flex: 2, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "row" }}>
 
             <TouchableOpacity
-              onPress={() => { getAllData() }}
+              onPress={() => { setPageNumber(1); getAllData() }}
               style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 1, height: 45, marginTop: 20, paddingLeft: 4, paddingRight: 4, backgroundColor: "#d8672b", borderRadius: 5, }}>
               <View style={{ flexDirection: "row" }}>
                 <MaterialCommunityIcons
@@ -148,7 +168,20 @@ const HomeScreen = ({ navigation }) => {
 
 
       <View style={{ flex: 14, padding: 16, paddingTop: 0 }}>
-        <ScrollView>
+        <ScrollView onScroll={({ nativeEvent }) => {
+          if (scrollBottom(nativeEvent)) {
+            if (transData == false) {
+              if (pageNumber != listData.length) {
+                setPageNumber(pageNumber + 1)
+                console.log("dsd", totalData)
+
+                getAllData(false)
+              }
+
+            }
+
+          }
+        }}>
 
 
           <View
@@ -170,14 +203,14 @@ const HomeScreen = ({ navigation }) => {
                 fppName = item.productName
               }
               var dimgN = item.documnetKind;
-              
+
               return (
 
                 <View
                   key={key}
                   style={styles.button}
-                  // onPress={() =>navigation.navigate('SettingsStack', { screen: 'Settings' })}
-                  >
+                // onPress={() =>navigation.navigate('SettingsStack', { screen: 'Settings' })}
+                >
 
                   <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                     <Image style={{ width: 25, height: 25, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
@@ -185,20 +218,20 @@ const HomeScreen = ({ navigation }) => {
                     } />
 
                     <Text style={{ flex: 4 }}>{fppName}</Text>
-                    <Text style={{ flex: 2,fontStyle:"italic",fontSize:12,textAlign:"right",color:"grey" }}>{item.documentDate}</Text>
+                    <Text style={{ flex: 2, fontStyle: "italic", fontSize: 12, textAlign: "right", color: "grey" }}>{item.documentDate}</Text>
                   </View>
 
-                  <View style={{ flexDirection: "row", justifyContent: "space-between" ,paddingRight:20,paddingLeft:14}}>
-                    <Text  style={{flex:1}}>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", paddingRight: 20, paddingLeft: 14 }}>
+                    <Text style={{ flex: 1 }}>
                       {item.name}
                     </Text>
-                    <TouchableOpacity style={{fontSize:18,flex:1,alignSelf:"flex-end"}} onPress={() =>navigation.navigate("Details",{documnetKind:dimgN,objectId:item.id})}>
-                    <MaterialCommunityIcons
-                  name="magnify"
-                  size={20}
-                  color="black"
-                  style={{textAlign:'right'}}
-                />
+                    <TouchableOpacity style={{ fontSize: 18, flex: 1, alignSelf: "flex-end" }} onPress={() => navigation.navigate("Details", { documnetKind: dimgN, objectId: item.id })}>
+                      <MaterialCommunityIcons
+                        name="magnify"
+                        size={20}
+                        color="black"
+                        style={{ textAlign: 'right' }}
+                      />
                     </TouchableOpacity>
                   </View>
 
@@ -208,7 +241,11 @@ const HomeScreen = ({ navigation }) => {
 
 
           </View>
-
+          {
+          <View style={{ justifyContent:"center",flexDirection:"row"}}>
+            <Image style={{width:50,height:50,alignSelf:"center"}} source={require("../assets/loading.gif")} ></Image>
+          </View>
+}
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -223,10 +260,10 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     flexDirection: "column",
-    borderRadius:10,
-    borderColor:'#DDDDDD',
-    borderStyle:"solid",
-    borderWidth:1
+    borderRadius: 10,
+    borderColor: '#DDDDDD',
+    borderStyle: "solid",
+    borderWidth: 1
   },
   datetimeP: {
     borderWidth: 1,
@@ -238,7 +275,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flexDirection: "row",
     alignItems: "center"
-    
+
 
   }
 });
