@@ -25,7 +25,8 @@ const HomeScreen = ({ navigation }) => {
   const [listData, setListData] = React.useState([]);
   const [transData, setTransData] = React.useState(false);
   const [totalData, setTotalData] = React.useState(0);
-  const [loadingDAta, setLoadingData] = React.useState(false);
+  const [dataLoading, setDataLoading] = React.useState(false);
+
 
 
   const showsDatePicker = () => {
@@ -53,27 +54,43 @@ const HomeScreen = ({ navigation }) => {
     hideeDatePicker();
   };
   const getAllData = async (first = true) => {
+    if (first === true) {
+      setListData([])
+    }
     setTransData(true)
+    setDataLoading(true)
+    setPageNumber(1)
     var d = await AxiosPost("Document/GetAll", {
       "pageNumber": pageNumber,
       "pageSize": 7,
       "startDate": startDate.toISOString(),
       "endDate": endDate.toISOString()
     }).then(x => { return x.data }).catch(x => { return x });
+
     var ll = listData;
     setTotalData(d.data.totalCount)
+
+
     d.data.list.forEach(element => {
       ll.push(element)
     });
-    if (first) {
-      setListData(d.data.list)
+    setTimeout(() => {
+      if (first === true) {
+        setListData(d.data.list)
 
-    } else {
-      setListData(ll)
+      } else {
+        setListData(ll)
+        var sas = pageNumber + 1
+        console.log(sas, d.data.totalCount)
+        setPageNumber(pageNumber + 1)
 
-    }
+      }
+      setTransData(false)
+      setDataLoading(false)
+    }, 100);
 
-    setTransData(false)
+
+
   };
 
 
@@ -169,17 +186,15 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={{ flex: 14, padding: 16, paddingTop: 0 }}>
         <ScrollView onScroll={({ nativeEvent }) => {
+          if (pageNumber != totalData) {
+            setDataLoading(true)
+          }
           if (scrollBottom(nativeEvent)) {
             if (transData == false) {
-              if (pageNumber != listData.length) {
-                setPageNumber(pageNumber + 1)
-                console.log("dsd", totalData)
-
+              if (pageNumber != totalData) {
                 getAllData(false)
               }
-
             }
-
           }
         }}>
 
@@ -241,11 +256,10 @@ const HomeScreen = ({ navigation }) => {
 
 
           </View>
-          {
-          <View style={{ justifyContent:"center",flexDirection:"row"}}>
-            <Image style={{width:50,height:50,alignSelf:"center"}} source={require("../assets/loading.gif")} ></Image>
+          {dataLoading && <View style={{ justifyContent: "center", flexDirection: "row" }}>
+            <Image style={{ width: 50, height: 50, alignSelf: "center" }} source={require("../assets/loading.gif")} ></Image>
           </View>
-}
+          }
         </ScrollView>
       </View>
     </SafeAreaView>
