@@ -62,7 +62,7 @@ const HomeScreen = ({ navigation }) => {
     setPageNumber(1)
     var d = await AxiosPost("Document/GetAll", {
       "pageNumber": pageNumber,
-      "pageSize": 7,
+      "pageSize": 10,
       "startDate": startDate.toISOString(),
       "endDate": endDate.toISOString()
     }).then(x => { return x.data }).catch(x => { return x });
@@ -81,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
       } else {
         setListData(ll)
         var sas = pageNumber + 1
-        console.log(sas, d.data.totalCount)
+      
         setPageNumber(pageNumber + 1)
 
       }

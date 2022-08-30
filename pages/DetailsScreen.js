@@ -12,6 +12,7 @@ const DetailsScreen = (props) => {
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(true);
 
+
   React.useEffect(() => {
 
     start()
@@ -23,7 +24,7 @@ const DetailsScreen = (props) => {
     setLoading(false)
     setData(d.data)
     setLoading(false)
-    console.log(d.data)
+  
   }
 
   return (
@@ -31,14 +32,30 @@ const DetailsScreen = (props) => {
       <Loading style={{ flex: 1, flexDirection: "column" }} Loading={loading}>
         <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid", flex: 1 }}>
           <View style={{ flex: 2, padding: 5 }}>
-            <Image source={{ uri: fileurl + "upload/" + data.company?.logoUrl }} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>
+
+            {data.company?.logoUrl && <Image source={{ uri: fileurl + "upload/" + data.company?.logoUrl }} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+            {data.person?.logoUrl && <Image source={{ uri: fileurl + "upload/" + data.person?.logoUrl }} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+            {data.product?.logoUrl && <Image source={{ uri: fileurl + "upload/" + data.product?.logoUrl }} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+            {!data.company?.logoUrl && !data.person?.logoUrl && !data.product?.logoUrl &&
+            <>
+             {data.documnetKind==1&&<Image source={require("../assets/person.png")} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+             {data.documnetKind==2&&<Image source={require("../assets/company.png")} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+             {data.documnetKind==3&&<Image source={require("../assets/product.png")} style={{ flex: 1, width: "100%", height: "100%", resizeMode: "contain" }}></Image>}
+
+            </>
+ 
+            }
           </View>
           <View style={{ flex: 3 }}>
-            <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>{data.company?.name}</Text>
+            {data.company?.name && <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>{data.company?.name}</Text>}
+            {data.product?.name && <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>{data.product?.name}</Text>}
+            {data.person?.firstName && <Text style={{ fontSize: 16, fontWeight: "bold", textAlign: "center" }}>{data.person?.firstName + " " + data.person?.lastName}</Text>}
+
+
           </View>
           <View style={{ flex: 1, padding: 5, alignItems: "flex-end" }}>
 
-            <TouchableOpacity style={{ backgroundColor: "wh'te", padding: 5, paddingRight: 7, paddingLeft: 7, borderColor: "#bdbdbd", borderWidth: 1, borderRadius: 5 }}>
+            <TouchableOpacity onPress={()=>{props.navigation.navigate("DataDetails",{id:data.companyId||data.personId||data.productId,documnetKind:data.documnetKind})}} style={{ backgroundColor: "wh'te", padding: 5, paddingRight: 7, paddingLeft: 7, borderColor: "#bdbdbd", borderWidth: 1, borderRadius: 5 }}>
               <MaterialCommunityIcons
                 name="information"
                 size={25}
@@ -64,9 +81,9 @@ const DetailsScreen = (props) => {
                   <Text>{data.description}</Text>
                 </View>
               </View>
-              <View style={{ flexDirection: "row" ,backgroundColor:"white",paddingTop:15,paddingBottom:15,marginBottom:20}}>
+              <View style={{ flexDirection: "row", backgroundColor: "white", paddingTop: 15, paddingBottom: 15, marginBottom: 20 }}>
                 <View style={{ flex: 1, flexDirection: "column" }}>
-                  <View>
+                  <View style={{alignContent:"center"}}>
                     {
                       data.documentType == 1 &&
                       <>
@@ -78,7 +95,7 @@ const DetailsScreen = (props) => {
                     {
                       data.documentType == 2 &&
                       <>
-                        <Image style={{ width: "100%", resizeMode: "contain", height: 50 }} source={require("../assets/sertifika.png")}></Image>
+                        <Image style={{ width: "100%", resizeMode: "contain", height: 50 }} source={require("../assets/certificate.png")}></Image>
                         <Text style={{ textAlign: "center" }}>Sertifika</Text>
                       </>
                     }

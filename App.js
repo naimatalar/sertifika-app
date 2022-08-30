@@ -13,6 +13,8 @@ import HomeScreen from './pages/HomeScreen';
 import DetailsScreen from './pages/DetailsScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import SettingsScreen from './pages/SettingsScreen';
+import LangApp from './Language';
+import DataDetail from './pages/DataDetail';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +31,12 @@ function HomeStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Home Page' }}
+        options={{ title: "Sertifika"}}
+      />
+            <Stack.Screen
+        name="DataDetails"
+        component={DataDetail}
+        options={{ title: "Sertifika"}}
       />
       <Stack.Screen
         name="Details"
@@ -106,10 +113,10 @@ function ProductStack() {
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ title: 'Setting Page' }}
+            <Stack.Screen
+        name="DataDetails"
+        component={DataDetail}
+        options={{ title: "Sertifika"}}
       />
       <Stack.Screen
         name="Details"
@@ -135,15 +142,16 @@ function BarcodeStack() {
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ title: 'Setting Page' }}
+            <Stack.Screen
+        name="DataDetails"
+        component={DataDetail}
+        options={{ title: "Sertifika"}}
       />
       <Stack.Screen
         name="Details"
         component={DetailsScreen}
         options={{ title: 'Details Page' }}
+       
       />
       <Stack.Screen
         name="Profile"
@@ -169,7 +177,7 @@ function App() {
           name="HomeStack"
           component={HomeStack}
           options={{
-            tabBarLabel: 'Ara',
+            tabBarLabel: 'Sertifika',
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons name="archive-search-outline" color={color} size={size} />
             ),

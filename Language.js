@@ -53,8 +53,35 @@ export const LGWord = {
     Download: {
         en: { Download: 'Download' },
         tr: { Download: 'İndir' },
+    },
+    Search: {
+        en: { Search: 'Search' },
+        tr: { Search: 'Arama' },
+    },
+    Person: {
+        en: { Person: 'Person' },
+        tr: { Person: 'Kişiler' },
+    },
+    Phone: {
+        en: { Phone: 'Phone' },
+        tr: { Phone: 'Telefon' },
+    },
+    Address: {
+        en: { Address: 'Address' },
+        tr: { Address: 'Adres' },
+    }, 
+       About: {
+        en: { About: 'About' },
+        tr: { About: 'Hakkında' },
+    },
+    DocName: {
+        en: { DocName: 'Document Name' },
+        tr: { DocName: 'Belge Adı' },
+    },
+    Detail: {
+        en: { Detail: 'Detail' },
+        tr: { Detail: 'Detay' },
     }
-
 
 };
 
