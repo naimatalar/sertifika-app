@@ -14,10 +14,10 @@ import {
 } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AxiosPost } from '../crud/crud';
+import { AxiosPost, fileurl } from '../crud/crud';
 import LangApp from '../Language';
 
-const HomeScreen = (props,{ navigation }) => {
+const HomeScreen = ({ navigation }) => {
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
@@ -252,9 +252,7 @@ const HomeScreen = (props,{ navigation }) => {
                 >
 
                   <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                    <Image style={{ width: 25, height: 25, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
-                      (dimgN == 1 && require("../assets/pimage1.png") || dimgN == 2 && require("../assets/pimage2.png") || dimgN == 3 && require("../assets/pimage3.png"))
-                    } />
+                    <Image style={{ width: 25, height: 25, marginRight: 5, flex: 1, resizeMode: "contain" }} source={{ uri: fileurl + "upload/" +( item?.clogoUrl||item?.perlogoUrl||item?.prlogoUrl) }  } />
 
                     <Text style={{ flex: 4, textAlign: "center", fontWeight: "bold" }}>{item.name}</Text>
                     <Text style={{ flex: 2, fontStyle: "italic", fontSize: 12, textAlign: "right", color: "grey" }}>{item.documentDate}</Text>

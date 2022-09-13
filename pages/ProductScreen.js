@@ -106,7 +106,7 @@ const ProductScreen = (props) => {
 
           <View style={{ paddingLeft: 10, paddingRight: 10, flex: 3 }}>
 
-            <TextInput clearButtonMode='always' onChangeText={(x) => { setCompanyName(x) }} placeholder={LangApp("SearchByName")} style={{ height: 45, marginTop: 20 }}></TextInput>
+            <TextInput clearButtonMode='always' onChangeText={(x) => { setCompanyName(x) }} placeholder={LangApp("TouchForSearch")} style={{ height: 45, marginTop: 20 }}></TextInput>
 
           </View>
           {/* <View style={{ flex: 1, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center" }}>

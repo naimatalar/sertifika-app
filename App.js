@@ -21,6 +21,8 @@ import { Avatar, Button } from 'react-native-paper';
 import LanguageContent from './components/LanguageContent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
+import { YellowBox } from 'react-native';
+import BarcodeScreen from './pages/BarcodeScreen';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -164,8 +166,8 @@ function BarcodeStack() {
       )
       }}>
             <Stack.Screen
-        name="DataDetails"
-        component={DataDetail}
+        name="Barcode"
+        component={BarcodeScreen}
         options={{ title: "Sertifika"}}
       />
       <Stack.Screen
@@ -186,7 +188,7 @@ function BarcodeStack() {
 
 
 function App() {
-  
+  console.disableYellowBox = false;
   const[data,setData] =React.useState()
   return (
     <NavigationContainer>
