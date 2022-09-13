@@ -55,7 +55,7 @@ const DetailsScreen = (props) => {
           </View>
           <View style={{ flex: 1, padding: 5, alignItems: "flex-end" }}>
 
-            <TouchableOpacity onPress={()=>{props.navigation.navigate("DataDetails",{id:data.companyId||data.personId||data.productId,documnetKind:data.documnetKind})}} style={{ backgroundColor: "wh'te", padding: 5, paddingRight: 7, paddingLeft: 7, borderColor: "#bdbdbd", borderWidth: 1, borderRadius: 5 }}>
+            <TouchableOpacity onPress={()=>{props.navigation.navigate("DataDetails",{id:data.companyId||data.personId||data.productId,documnetKind:data.documnetKind})}} style={{ backgroundColor: "white", padding: 5, paddingRight: 7, paddingLeft: 7, borderColor: "#bdbdbd", borderWidth: 1, borderRadius: 5 }}>
               <MaterialCommunityIcons
                 name="information"
                 size={25}
@@ -88,7 +88,7 @@ const DetailsScreen = (props) => {
                       data.documentType == 1 &&
                       <>
                         <Image style={{ width: "100%", resizeMode: "contain", height: 50 }} source={require("../assets/report.png")}></Image>
-                        <Text style={{ textAlign: "center", color: "#ffa270", fontWeight: 'bold' }}>Rapor</Text>
+                        <Text style={{ textAlign: "center", color: "#ffa270", fontWeight: 'bold' }}>{LangApp("Report")}</Text>
                       </>
 
                     }
@@ -96,9 +96,9 @@ const DetailsScreen = (props) => {
                       data.documentType == 2 &&
                       <>
                         <Image style={{ width: "100%", resizeMode: "contain", height: 50 }} source={require("../assets/certificate.png")}></Image>
-                        <Text style={{ textAlign: "center" }}>Sertifika</Text>
+                        <Text style={{ textAlign: "center" }}>{LangApp("Certificate")}</Text>
                       </>
-                    }
+                    } 
 
                   </View>
                 </View>

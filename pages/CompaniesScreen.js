@@ -14,11 +14,12 @@ import {
 } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AxiosPost } from '../crud/crud';
-
-const HomeScreen = ({ navigation }) => {
-  const [startDate, setStartDate] = React.useState(new Date())
-  const [endDate, setEndDate] = React.useState(new Date())
+import { AxiosPost, fileurl } from '../crud/crud';
+import { TextInput } from 'react-native-paper';
+import LangApp from '../Language';
+ 
+const CompaniesScreen = (props) => {
+  const [companyName, setCompanyName] = React.useState("")
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
   const [isDateePickerVisible, setDateePickerVisibility] = React.useState(false);
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -30,31 +31,8 @@ const HomeScreen = ({ navigation }) => {
 
 
 
-  const showsDatePicker = () => {
-    setDatesPickerVisibility(true);
-  };
 
-  const hidesDatePicker = () => {
-    setDatesPickerVisibility(false);
-  };
-
-  const handlesConfirm = (date) => {
-    setStartDate(date)
-    hidesDatePicker();
-  };
-  const showeDatePicker = () => {
-    setDateePickerVisibility(true);
-  };
-
-  const hideeDatePicker = () => {
-    setDateePickerVisibility(false);
-  };
-
-  const handleeConfirm = (date) => {
-    setEndDate(date)
-    hideeDatePicker();
-  };
-  React.useEffect(() => { getAllData()}, [])
+  React.useEffect(() => { getAllData() }, [])
 
   const getAllData = async (first = true) => {
     if (first === true) {
@@ -66,14 +44,14 @@ const HomeScreen = ({ navigation }) => {
 
     var d = []
     if (isPageLoadData == false) {
-      d = await AxiosPost("Document/GetAll", {
+      d = await AxiosPost("Company/search", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
-        "startDate": startDate.toISOString(),
-        "endDate": endDate.toISOString()
+        "name": companyName,
+
       }).then(x => { return x.data }).catch(x => { return x });
     } else {
-      d = await AxiosPost("Document/GetAllFull", {
+      d = await AxiosPost("Company/GetAllMobil", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
 
@@ -118,18 +96,13 @@ const HomeScreen = ({ navigation }) => {
 
       <View style={{ flex: 2, flexDirection: "column", justifyContent: 'center', paddingBottom: 30, paddingTop: 20, backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid" }}>
         {/* <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View> */}
+        <Text style={{ textAlign: "center",fontWeight:"bold" }}>{LangApp("EnterCompanyName")}</Text>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}>
-            <Text style={{ marginBottom: 5 }}>Başlangı</Text>
-            <TouchableOpacity onPress={showsDatePicker} style={styles.datetimeP} >
-              <MaterialCommunityIcons
-                name="calendar"
-                size={25}
-              />
-              <Text >
-                {startDate.getDate() + "/" + startDate.getMonth() + "/" + startDate.getFullYear()}
-              </Text>
-            </TouchableOpacity>
+
+
+          <View style={{ paddingLeft: 10, paddingRight: 10, flex: 3 }}>
+
+            <TextInput clearButtonMode='always' onChangeText={(x) => { setCompanyName(x) }} placeholder={LangApp("TouchForSearch")} style={{ height: 45, marginTop: 20 }}></TextInput>
 
           </View>
           {/* <View style={{ flex: 1, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
@@ -142,22 +115,8 @@ const HomeScreen = ({ navigation }) => {
             </Text>
           </View> */}
 
-          <View style={{ flex: 2, paddingLeft: 10, paddingRight: 10 }} >
-            <Text style={{ marginBottom: 5 }}>Bitiş</Text>
-            <TouchableOpacity style={styles.datetimeP} onPress={showeDatePicker} >
-              <MaterialCommunityIcons
-                name="calendar"
-                size={25}
-              />
-              <Text >
 
-                {endDate.getDate() + "/" + endDate.getMonth() + "/" + endDate.getFullYear()}
-              </Text>
-            </TouchableOpacity>
-
-          </View>
-          <View style={{ flex: 2, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "row" }}>
-
+          <View style={{ flex: 1, textAlign: "center", justifyContent: "center", alignContent: "center", alignItems: "center", flexDirection: "row" }}>
             <TouchableOpacity
               onPress={() => { setIsPagaLoadData(false); setPageNumber(1); getAllData() }}
               style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", borderWidth: 1, flex: 1, height: 45, marginTop: 20, paddingLeft: 4, paddingRight: 4, backgroundColor: "#d8672b", borderRadius: 5, }}>
@@ -167,36 +126,19 @@ const HomeScreen = ({ navigation }) => {
                   size={20}
                   color="white"
                 />
-                <Text style={{ fontWeight: "bold", color: "white" }}> Ara</Text>
+                <Text style={{ fontWeight: "bold", color: "white" }}> {LangApp("Find")}</Text>
               </View>
 
             </TouchableOpacity>
+
           </View>
         </View>
 
-        <DateTimePickerModal
-          isVisible={isDatesPickerVisible}
-          mode="date"
-          onConfirm={handlesConfirm}
-          onCancel={hidesDatePicker}
-          confirmTextIOS="Seç"
-          cancelTextIOS='Vazgeç'
-          locale='tr-TR'
-        />
-        <DateTimePickerModal
-          isVisible={isDateePickerVisible}
-          mode="date"
-          onConfirm={handleeConfirm}
-          onCancel={hideeDatePicker}
-          confirmTextIOS="Seç"
-          cancelTextIOS='Vazgeç'
-          locale='tr-TR'
-        />
 
       </View>
 
 
-      <View style={{ flex: 14, padding: 16, paddingTop: 0 }}>
+      <View style={{ flex: 14, padding: 0, paddingTop: 0 }}>
 
         <ScrollView onScroll={({ nativeEvent }) => {
           if (pageNumber != totalData) {
@@ -219,12 +161,12 @@ const HomeScreen = ({ navigation }) => {
               justifyContent: 'center',
             }}>
             {
-              listData.length == 0 && dataLoading==false&&transData==false&& <View style={{ alignItems: "center" ,flex:1,marginTop:50}}>
-              
+              listData.length == 0 && dataLoading == false && transData == false && <View style={{ alignItems: "center", flex: 1, marginTop: 50 }}>
 
-                  <Image style={{ width: 120, height: 120 }} source={require("../assets/notfound.png")}></Image>
-                  <Text style={{fontWeight:"bold",color:"red",fontSize:20,marginTop:10}}>Kayıt bulunamadı</Text>
-                
+
+                <Image style={{ width: 120, height: 120 }} source={require("../assets/notfound.png")}></Image>
+                <Text style={{ fontWeight: "bold", color: "red", fontSize: 20, marginTop: 10 }}>{LangApp("NoResult")}</Text>
+
               </View>
             }
 
@@ -240,38 +182,29 @@ const HomeScreen = ({ navigation }) => {
               if (item.productName != null) {
                 fppName = item.productName
               }
-              var dimgN = item.documnetKind;
-
+            //   var dimgN = item.documnetKind;
+            //  console.log(dimgN)
               return (
 
-                <View
-                  key={key}
-                  style={styles.button}
-                // onPress={() =>navigation.navigate('SettingsStack', { screen: 'Settings' })}
-                >
-
-                  <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                    <Image style={{ width: 25, height: 25, marginRight: 5, flex: 1, resizeMode: "contain" }} source={
-                      (dimgN == 1 && require("../assets/pimage1.png") || dimgN == 2 && require("../assets/pimage2.png") || dimgN == 3 && require("../assets/pimage3.png"))
-                    } />
-
-                    <Text style={{ flex: 4, textAlign: "center", fontWeight: "bold" }}>{item.name}</Text>
-                    <Text style={{ flex: 2, fontStyle: "italic", fontSize: 12, textAlign: "right", color: "grey" }}>{item.documentDate}</Text>
+                <View key={key} style={{minHeight:65, flexDirection: "row", flex: 1, marginBottom: 10, backgroundColor: "white",borderTopWidth:1,borderBottomWidth:1,borderColor:"#d8672b",borderWidth:1 }}> 
+                  <View style={{ flexDirection: "row", alignItems: "center", flex: 2, padding: 5 }}>
+                   <Image source={{ uri: fileurl + "upload/" + item?.logoUrl }} style={{width:"100%",height:"100%",minHeight:40,resizeMode:"contain"}}></Image>
+                  </View>
+                  <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", flex: 4, padding: 5 }}>
+                    <Text style={{ textAlign: "center" }}>{item.name}</Text>
                   </View>
 
-                  <View style={{ flexDirection: "row", justifyContent: "space-around", paddingRight: 20, paddingLeft: 14 }}>
-                    <Text style={{ flex: 1, marginTop: 5, color: "#d8672b" }}>
-                      {fppName}
-                    </Text>
-                    <TouchableOpacity style={{ fontSize: 18, alignSelf: "flex-end", backgroundColor: "#d8672b", alignSelf: "flex-end", padding: 5 }} onPress={() => navigation.navigate("Details", { documnetKind: dimgN, objectId: item.id })}>
-                      <MaterialCommunityIcons
-                        name="magnify"
-                        size={20}
-                        color="white"
-                        style={{ textAlign: 'right' }}
-                      />
-                    </TouchableOpacity>
-                  </View>
+              
+                  <TouchableOpacity onPress={() => { props.navigation.navigate("DetailsCompany",{id:item.id,documnetKind:2}) }} style={{ flexDirection: "column", justifyContent: "center", flex: 2, alignItems: "center", backgroundColor: "#d8672b" }}>
+
+                    <MaterialCommunityIcons
+                      name="magnify"
+                      size={20}
+                      color="white"
+                      style={{ textAlign: 'right' }}
+                    />
+                    <Text style={{color:"white",fontWeight:"bold"}}>{LangApp("Detail")}</Text>
+                  </TouchableOpacity>
 
                 </View>
               )
@@ -316,4 +249,4 @@ const styles = StyleSheet.create({
 
   }
 });
-export default HomeScreen;
+export default CompaniesScreen;

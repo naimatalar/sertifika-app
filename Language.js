@@ -81,7 +81,54 @@ export const LGWord = {
     Detail: {
         en: { Detail: 'Detail' },
         tr: { Detail: 'Detay' },
+    },
+    Companies: {
+        en: { Companies: 'Companies' },
+        tr: { Companies: 'Firmalar' },
+    },
+    TouchForSearch: {
+        en: { TouchForSearch: 'Touch For Search' },
+        tr: { TouchForSearch: 'Aramak için Dokun' },
+    },
+    EnterCompanyName: {
+        en: { EnterCompanyName: 'Enter campany name for find' },
+        tr: { EnterCompanyName: 'Aramak istediğiniz firmanın ismini giriniz' },
+    },
+   CertificateAndReport: {
+        en: { CertificateAndReport: 'Certificates And Reports' },
+        tr: { CertificateAndReport: 'Sertifika Ve Raporlar' },
+    },
+    Name: {
+        en: { Name: 'Name' },
+        tr: { Name: 'İsim' },
+    },
+    Job: {
+        en: { Job: 'Job' },
+        tr: { Job: 'Meslek' },
+    },
+    ProductCompany: {
+        en: { ProductCompany: 'Product Company' },
+        tr: { ProductCompany: 'Üretici Firma' },
+    },
+    NoResult: {
+        en: { NoResult: 'No Result' },
+        tr: { NoResult: 'Kayıt Bulunamadı' },
+    },
+    Find: {
+        en: { Find: 'Find' },
+        tr: { Find: 'Ara' },
+    },
+    Products: {
+        en: { Products: 'Ürünler' },
+        tr: { Products: 'Ürünler' },
+    },  SearchByName: {
+        en: { SearchByName: 'Search By Name' },
+        tr: { SearchByName: 'Ad Soyad Ara' },
+    }, EnterNameForSearch: {
+        en: { EnterNameForSearch: 'Entar Person Name For Search' },
+        tr: { EnterNameForSearch: 'Kişi Adı Soyadı İle Arama' },
     }
+
 
 };
 

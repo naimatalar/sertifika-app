@@ -12,9 +12,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './pages/HomeScreen';
 import DetailsScreen from './pages/DetailsScreen';
 import ProfileScreen from './pages/ProfileScreen';
-import SettingsScreen from './pages/SettingsScreen';
 import LangApp from './Language';
 import DataDetail from './pages/DataDetail';
+import CompaniesScreen from './pages/CompaniesScreen';
+import PersonScreens from './pages/PersonsScreen';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,13 +42,13 @@ function HomeStack() {
       <Stack.Screen
         name="Details"
         component={DetailsScreen}
-        options={{ title: 'Details Page' }}
+        options={{ title: LangApp("Detail") }}
       />
     </Stack.Navigator>
   );
 }
 
-function SettingsStack() {
+function CompaniesStack() {
   return (
     <Stack.Navigator
       initialRouteName="Settings"
@@ -58,13 +59,13 @@ function SettingsStack() {
       }}>
       <Stack.Screen
         name="Settings"
-        component={SettingsScreen}
-        options={{ title: 'Setting Page' }}
+        component={CompaniesScreen}
+        options={{ title: LangApp("Companies") }}
       />
-      <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={{ title: 'Details Page' }}
+        <Stack.Screen
+        name="DetailsCompany"
+        component={DataDetail}
+        options={{ title: LangApp("Detail") }}
       />
       <Stack.Screen
         name="Profile"
@@ -85,9 +86,9 @@ function PersonStack() {
         headerTitleStyle: { fontWeight: 'bold' },
       }}>
       <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ title: 'Setting Page' }}
+        name="PersonScreens"
+        component={PersonScreens}
+        options={{ title: LangApp("Person") }}
       />
       <Stack.Screen
         name="Details"
@@ -184,10 +185,10 @@ function App() {
           }}
         />
         <Tab.Screen
-          name="SettingsStack"
-          component={SettingsStack}
+          name="CompaniesStack"
+          component={CompaniesStack}
           options={{
-            tabBarLabel: 'Firmalar',
+            tabBarLabel: LangApp("Companies"),
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="office-building-outline"
@@ -228,7 +229,7 @@ function App() {
           name="PersonStack"
           component={PersonStack}
           options={{
-            tabBarLabel: 'Kişiler',
+            tabBarLabel: LangApp("Person"),
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="account-box-multiple-outline"
@@ -236,14 +237,14 @@ function App() {
                 size={size}
               />
             ),
-          }}
+          }} 
         />
         
         <Tab.Screen
           name="ProductStack"
           component={ProductStack}
           options={{
-            tabBarLabel: 'Ürünler',
+            tabBarLabel:LangApp("Products"),
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="gift-open"
