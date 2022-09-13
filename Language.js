@@ -1,15 +1,16 @@
 import * as Localization from 'expo-localization';
 import { I18n } from 'i18n-js';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
 export const LGWord = {
     Email: {
         en: { Email: 'Email' },
         tr: { Email: 'Eposta' },
     },
- Password: {
+    Password: {
         en: { Password: 'Password' },
         tr: { Password: 'Parola' },
-    }, 
+    },
     Emailcantbeempty: {
         en: { Emailcantbeempty: 'Email can`t be empty.' },
         tr: { Emailcantbeempty: 'Eposta boş olamaz' },
@@ -69,8 +70,8 @@ export const LGWord = {
     Address: {
         en: { Address: 'Address' },
         tr: { Address: 'Adres' },
-    }, 
-       About: {
+    },
+    About: {
         en: { About: 'About' },
         tr: { About: 'Hakkında' },
     },
@@ -94,7 +95,7 @@ export const LGWord = {
         en: { EnterCompanyName: 'Enter campany name for find' },
         tr: { EnterCompanyName: 'Aramak istediğiniz firmanın ismini giriniz' },
     },
-   CertificateAndReport: {
+    CertificateAndReport: {
         en: { CertificateAndReport: 'Certificates And Reports' },
         tr: { CertificateAndReport: 'Sertifika Ve Raporlar' },
     },
@@ -121,29 +122,64 @@ export const LGWord = {
     Products: {
         en: { Products: 'Ürünler' },
         tr: { Products: 'Ürünler' },
-    },  SearchByName: {
+    }, SearchByName: {
         en: { SearchByName: 'Search By Name' },
         tr: { SearchByName: 'Ad Soyad Ara' },
     }, EnterNameForSearch: {
         en: { EnterNameForSearch: 'Entar Person Name For Search' },
         tr: { EnterNameForSearch: 'Kişi Adı Soyadı İle Arama' },
+    },
+    EnterProductNameForSearch: {
+        en: { EnterProductNameForSearch: 'Entar Product Name For Search' },
+        tr: { EnterProductNameForSearch: 'Ürün Adı Girerek Arama ' },
+    },
+    ProductName: {
+        en: { ProductName: 'Product Name' },
+        tr: { ProductName: 'Ürün Adı ' },
+    },
+    StartDate: {
+        en: { StartDate: 'Start Date' },
+        tr: { StartDate: 'Başlangıç' },
+    },
+    EndDate: {
+        en: { EndDate: 'End Date' },
+        tr: { EndDate: 'Bitiş' },
     }
 
 
 };
+let lnconf=""
 
-const LangApp =(word)=>{ 
+AsyncStorage.getItem("language").then(x => {
+    if (x != null) {
+        lnconf = x
+    } else {
+
+        lnconf = Localization.locale;
+
+    }
+})
+//   var ss =await AsyncStorage.getItem("language")
+const LangApp = (word) => {
+
+    var dd = LGWord[word]
+    var ln = new I18n(dd);
+
+     ln.locale = lnconf;
     
-    var dd=LGWord[word]
-    
-    var ln=new I18n(dd);
-
-// Set the locale once at the beginning of your app.
-ln.locale = Localization.locale;
+    // Set the locale once at the beginning of your app.
 
 
-// When a value is missing from a language it'll fallback to another language with the key present.
-ln.enableFallback = true;
-return ln.t(word)
-} 
+    // if(dd!=null){
+    //     ln.locale = dd
+    // }
+
+
+
+    // When a value is missing from a language it'll fallback to another language with the key present.
+    ln.enableFallback = true;
+    return ln.t(word)
+}
+
+
 export default LangApp

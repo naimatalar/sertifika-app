@@ -15,8 +15,9 @@ import {
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AxiosPost } from '../crud/crud';
+import LangApp from '../Language';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (props,{ navigation }) => {
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
@@ -120,7 +121,7 @@ const HomeScreen = ({ navigation }) => {
         {/* <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View> */}
         <View style={{ flexDirection: 'row' }}>
           <View style={{ paddingLeft: 10, paddingRight: 10, flex: 2 }}>
-            <Text style={{ marginBottom: 5 }}>Başlangı</Text>
+            <Text style={{ marginBottom: 5 }}>{LangApp("StartDate")}</Text>
             <TouchableOpacity onPress={showsDatePicker} style={styles.datetimeP} >
               <MaterialCommunityIcons
                 name="calendar"
@@ -143,7 +144,7 @@ const HomeScreen = ({ navigation }) => {
           </View> */}
 
           <View style={{ flex: 2, paddingLeft: 10, paddingRight: 10 }} >
-            <Text style={{ marginBottom: 5 }}>Bitiş</Text>
+            <Text style={{ marginBottom: 5 }}>{LangApp("EndDate")}</Text>
             <TouchableOpacity style={styles.datetimeP} onPress={showeDatePicker} >
               <MaterialCommunityIcons
                 name="calendar"

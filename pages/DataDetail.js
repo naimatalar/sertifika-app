@@ -24,6 +24,7 @@ function DataDetail(props) {
         }).then(x => { return x.data }).catch(x => { return x });
         setData(d.data)
         setLoading(false)
+        console.log(d.data)
     }
     const containerStyle = { backgroundColor: 'white', padding: 20, width: "85%", alignSelf: "center", borderRadius: 10, maxHeight: "80%" };
     return (

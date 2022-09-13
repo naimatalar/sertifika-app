@@ -20,7 +20,7 @@ import { TextInput } from 'react-native-paper';
 import LangApp from '../Language';
 import PersonFlatList from '../components/PersonFlatList';
 
-const PersonScreens = (props) => {
+const ProductScreen = (props) => {
   const [companyName, setCompanyName] = React.useState("")
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
   const [isDateePickerVisible, setDateePickerVisibility] = React.useState(false);
@@ -41,19 +41,19 @@ const PersonScreens = (props) => {
       //  setPageNumber(1)
       setListData([])
     }
-    setTransData(true)
+    setTransData(true) 
     setDataLoading(true)
 
     var d = []
     if (isPageLoadData == false) {
-      d = await AxiosPost("Person/search", {
+      d = await AxiosPost("Product/search", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
         "name": companyName,
 
       }).then(x => { return x.data }).catch(x => { return x });
     } else {
-      d = await AxiosPost("Person/GetAllMobil", {
+      d = await AxiosPost("Product/GetAllMobil", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
 
@@ -64,7 +64,7 @@ const PersonScreens = (props) => {
 
 
     d.data.list.forEach(element => {
-      ll.push(element)
+      ll.push(element) 
     });
     setTimeout(() => {
       if (first === true) {
@@ -72,14 +72,14 @@ const PersonScreens = (props) => {
 
       } else {
 
-        setListData(ll)
+        setListData(ll) 
         var sas = pageNumber + 1
         setPageNumber(sas)
 
       }
       setTransData(false)
       setDataLoading(false)
-    }, 600);
+    }, 100);
 
 
 
@@ -92,7 +92,7 @@ const PersonScreens = (props) => {
       contentSize.height - paddingToBottom;
   };
 
-
+ 
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -100,7 +100,7 @@ const PersonScreens = (props) => {
 
       <View style={{ flex: 2, flexDirection: "column", justifyContent: 'center', paddingBottom: 30, paddingTop: 20, backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid" }}>
         {/* <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View> */}
-        <Text style={{ textAlign: "center", fontWeight: "bold" }}>{LangApp("EnterNameForSearch")}</Text>
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>{LangApp("EnterProductNameForSearch")}</Text>
         <View style={{ flexDirection: 'row' }}>
 
 
@@ -169,16 +169,15 @@ const PersonScreens = (props) => {
 
             <FlatList
               data={listData}
-              renderItem={({ item }) =><PersonFlatList key={item.id} item={item} prp={props}/>}
+              renderItem={({ item }) =><PersonFlatList  key={item.id} item={item} prp={props}/>}
               horizontal={false}
               keyExtractor={item => item.id}
               ListEmptyComponent={dataLoading && <View style={{ justifyContent: "center", flexDirection: "row" }}>
               <Image style={{ width: 50, height: 50, alignSelf: "center" }} source={require("../assets/loading.gif")} ></Image>
             </View>}
-            
               numColumns={2}
+              ListFooterComponent={<View></View>}
               onScroll={({ nativeEvent }) => {
-              
                 // if (pageNumber != totalData) {
                 //   setDataLoading(true)
                 // }
@@ -193,7 +192,7 @@ const PersonScreens = (props) => {
             />
 
           </View>
-          {dataLoading && <View style={{ justifyContent: "center", flexDirection: "row",position:"absolute", bottom:10,width:"100%",backgroundColor:"white",paddingBottom:25}}>
+          {dataLoading && <View style={{ justifyContent: "center", flexDirection: "row",position:"absolute", bottom:1,width:"100%",backgroundColor:"white",paddingBottom:25}}>
              <Image style={{ width: 50, height: 50, alignSelf: "center" }} source={require("../assets/loading.gif")} ></Image>
            </View>}
         </View>
@@ -229,4 +228,4 @@ const styles = StyleSheet.create({
 
   }
 });
-export default PersonScreens;
+export default ProductScreen;

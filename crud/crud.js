@@ -1,7 +1,7 @@
 import Axios from "axios"
 // const baseUrl = 'http://10.0.2.2:45457/api/';
-//  const baseUrl = "http://10.35.35.15:45456/api/";
-const baseUrl='http://192.168.0.14:45455/';
+ const baseUrl = "http://10.35.35.15:45456/";
+// const baseUrl='http://192.168.0.14:45456/';
 const api="api/"
 export const fileurl=baseUrl+"root/"
 export const AxiosPost = async (url,data) => {
@@ -20,3 +20,4 @@ export const AxiosGet = async (url,data) => {
     return await Axios.get(baseUrl+api+url, headers)
 
 }
+  

@@ -16,6 +16,11 @@ import LangApp from './Language';
 import DataDetail from './pages/DataDetail';
 import CompaniesScreen from './pages/CompaniesScreen';
 import PersonScreens from './pages/PersonsScreen';
+import ProductScreen from './pages/ProductScreen';
+import { Avatar, Button } from 'react-native-paper';
+import LanguageContent from './components/LanguageContent';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Localization from 'expo-localization';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +33,9 @@ function HomeStack() {
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => (
+          <LanguageContent></LanguageContent>
+      )
       }}>
       <Stack.Screen
         name="Home"
@@ -56,6 +64,9 @@ function CompaniesStack() {
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
+          headerRight: () => (
+            <LanguageContent></LanguageContent>
+        )
       }}>
       <Stack.Screen
         name="Settings"
@@ -84,6 +95,9 @@ function PersonStack() {
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
+        headerRight: () => (
+          <LanguageContent></LanguageContent>
+      )
       }}>
       <Stack.Screen
         name="PersonScreens"
@@ -91,9 +105,9 @@ function PersonStack() {
         options={{ title: LangApp("Person") }}
       />
       <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={{ title: 'Details Page' }}
+        name="PersonDetail"
+        component={DataDetail}
+        options={{ title: LangApp("Detail")  }}
       />
       <Stack.Screen
         name="Profile"
@@ -113,10 +127,13 @@ function ProductStack() {
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
+        headerRight: () => (
+          <LanguageContent></LanguageContent>
+      )
       }}>
             <Stack.Screen
-        name="DataDetails"
-        component={DataDetail}
+        name="ProductScreen"
+        component={ProductScreen}
         options={{ title: "Sertifika"}}
       />
       <Stack.Screen
@@ -142,6 +159,9 @@ function BarcodeStack() {
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
+        headerRight: () => (
+          <LanguageContent></LanguageContent>
+      )
       }}>
             <Stack.Screen
         name="DataDetails"
@@ -166,17 +186,20 @@ function BarcodeStack() {
 
 
 function App() {
-  console.disableYellowBox = true;
+  
+  const[data,setData] =React.useState()
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="HomeStack"
+      
         tabBarOptions={{
           activeTintColor: '#ffa270',
         }}>
         <Tab.Screen
           name="HomeStack"
           component={HomeStack}
+          initialParams={{refreshApp:setData}}
           options={{
             tabBarLabel: 'Sertifika',
             tabBarIcon: ({ color, size }) => (
