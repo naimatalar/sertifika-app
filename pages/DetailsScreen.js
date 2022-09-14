@@ -19,8 +19,9 @@ const DetailsScreen = (props) => {
   }, [])
   const start = async () => {
 
-
+  
     var d = await AxiosGet("Document/GetByObjectIdMobil/" + props.route.params.objectId).then(x => { return x.data }).catch(x => { return x });
+    
     setLoading(false)
     setData(d.data)
     setLoading(false)

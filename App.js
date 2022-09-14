@@ -138,10 +138,10 @@ function ProductStack() {
         component={ProductScreen}
         options={{ title: "Sertifika"}}
       />
-      <Stack.Screen
-        name="Details"
-        component={DetailsScreen}
-        options={{ title: 'Details Page' }}
+        <Stack.Screen
+        name="DetailsProduct"
+        component={DataDetail}
+        options={{ title: LangApp("Detail") }}
       />
       <Stack.Screen
         name="Profile"
@@ -170,11 +170,11 @@ function BarcodeStack() {
         component={BarcodeScreen}
         options={{ title: "Sertifika"}}
       />
-      <Stack.Screen
-        name="Details"
+
+            <Stack.Screen
+        name="DetailsDocument"
         component={DetailsScreen}
-        options={{ title: 'Details Page' }}
-       
+        options={{ title: LangApp("Detail") }}
       />
       <Stack.Screen
         name="Profile"

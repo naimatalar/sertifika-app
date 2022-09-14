@@ -19,6 +19,7 @@ import { AxiosPost, fileurl } from '../crud/crud';
 import { TextInput } from 'react-native-paper';
 import LangApp from '../Language';
 import PersonFlatList from '../components/PersonFlatList';
+import ProductFlatList from '../components/ProductFlatList';
 
 const ProductScreen = (props) => {
   const [companyName, setCompanyName] = React.useState("")
@@ -169,7 +170,7 @@ const ProductScreen = (props) => {
 
             <FlatList
               data={listData}
-              renderItem={({ item }) =><PersonFlatList  key={item.id} item={item} prp={props}/>}
+              renderItem={({ item }) =><ProductFlatList  key={item.id} item={item} prp={props}/>}
               horizontal={false}
               keyExtractor={item => item.id}
               ListEmptyComponent={dataLoading && <View style={{ justifyContent: "center", flexDirection: "row" }}>

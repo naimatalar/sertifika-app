@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { AxiosGet } from '../crud/crud';
 
 
 const BarcodeScreen = (props) => {
@@ -11,21 +12,30 @@ const BarcodeScreen = (props) => {
         const getBarCodeScannerPermissions = async () => {
             const { status } = await BarCodeScanner.requestPermissionsAsync();
             setHasPermission(status === 'granted');
-          };
-      
-          getBarCodeScannerPermissions();
-        
+        };
+
+        getBarCodeScannerPermissions();
+
     }, []);
     const scannetCahange = (d) => {
         // setScanned(d);
 
 
     }
-    const handleBarCodeScanned = ({ type, data }) => {
-
-        props.navigation.navigate("product", { barcode: data, schange: scannetCahange })
-        prp.navigation.navigate("PersonDetail", { id: item.id, documnetKind: 1 }) 
+    const handleBarCodeScanned = async ({ type, data }) => {
         setScanned(true);
+        var x = await AxiosGet("Document/GetByBarcodedMobil/" + data).then(x => {
+            return x
+        }).catch(x => { setScanned(true); });
+
+        if (x.data.data?.documnetKind == null) {
+            alert("Kayıt Bulunamadı");
+        } else {
+            props.navigation.navigate("DetailsDocument", { documnetKind: x.data.data.documnetKind, objectId: x.data.data.id })
+
+        }
+        // props.navigation.navigate("product", { barcode: data, schange: scannetCahange })
+
 
     };
 
@@ -64,9 +74,9 @@ const BarcodeScreen = (props) => {
                 </View>
                 <View style={{ backgroundColor: color, flex: 4 }}>
                     {scanned &&
-                        <TouchableOpacity style={{ backgroundColor: "white",padding:12,alignItems:"center" }}
+                        <TouchableOpacity style={{ backgroundColor: "white", padding: 12, alignItems: "center" }}
                             onPress={() => setScanned(false)} >
-                            <Text style={{color:"red",fontWeight:"bold"}}>TEKRAR OKUTMAK İÇİ DOKUNUN</Text>
+                            <Text style={{ color: "red", fontWeight: "bold" }}>TEKRAR OKUTMAK İÇİ DOKUNUN</Text>
                         </TouchableOpacity>
                     }
                 </View>

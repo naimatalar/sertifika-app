@@ -65,23 +65,26 @@ const HomeScreen = ({ navigation }) => {
     setTransData(true)
     setDataLoading(true)
 
-    var d = []
+    var d = {}
     if (isPageLoadData == false) {
       d = await AxiosPost("Document/GetAll", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
         "startDate": startDate.toISOString(),
         "endDate": endDate.toISOString()
-      }).then(x => { return x.data }).catch(x => { return x });
+      }).then(x => {return x.data }).catch(x => { return x });
+      
     } else {
       d = await AxiosPost("Document/GetAllFull", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
 
-      }).then(x => { return x.data }).catch(x => { return x });
+      }).then(x => {return x.data }).catch(x => { return x });
+      
     }
     var ll = listData;
-    setTotalData(d.data.totalCount)
+    
+    setTotalData(d.data?.totalCount)
 
 
     d.data.list.forEach(element => {
