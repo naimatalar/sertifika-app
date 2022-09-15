@@ -11,7 +11,7 @@ function LanguageContent() {
     const start = async () => {
 
         let lnconf = await AsyncStorage.getItem("language")
-
+console.log(lnconf)
         setFlg(require("../assets/trk.png"))
 
         if (lnconf.includes("tr")) {

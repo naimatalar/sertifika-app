@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
         "pageSize": 10,
 
       }).then(x => {return x.data }).catch(x => { return x });
-      
+      debugger
     }
     var ll = listData;
     
