@@ -79,6 +79,10 @@ export const LGWord = {
         en: { DocName: 'Document Name' },
         tr: { DocName: 'Belge Adı' },
     },
+    DocumentHolderName: {
+        en: { DocumentHolderName: 'Document Holder Name' },
+        tr: { DocumentHolderName: 'Belge Sahibi Adı' },
+    },
     Detail: {
         en: { Detail: 'Detail' },
         tr: { Detail: 'Detay' },
@@ -144,8 +148,15 @@ export const LGWord = {
     EndDate: {
         en: { EndDate: 'End Date' },
         tr: { EndDate: 'Bitiş' },
+    },
+    FilterDetail: {
+        en: { FilterDetail: 'Filter Detail' },
+        tr: { FilterDetail: 'Detaylı Filtre' },
+    },
+    HideFilterDetail: {
+        en: { HideFilterDetail: 'Hide Filter Detail' },
+        tr: { HideFilterDetail: 'Detaylı Filtreyi Gizle' },
     }
-
 
 };
 let lnconf=""
