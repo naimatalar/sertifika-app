@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Sertifika",
-    "slug": "Sertifika v.2",
-    "version": "2.0.0",
+    "slug": "snack-d9e80973-8e47-4917-b519-4ad84076e5ab",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -25,8 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "sertifikaV.2",
-      "permissions" : ["CAMERA"]
+      "package": "turcert.app.application"
     },
     "web": {
       "favicon": "./assets/favicon.png"

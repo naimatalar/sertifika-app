@@ -116,6 +116,23 @@ const HomeScreen = ({ navigation }) => {
     setDataLoading(true)
 
     var d = {}
+    if (filterDetail==true) {
+      let filter={
+        pageNumber: first == true ? 1 : pageNumber + 1,
+        pageSize: 10,
+        startDate: null,
+        endDate: null,
+        documentNo: fDocumentNo,
+        isCertificate: documentType.filter(x => { return x == "Certificate" }).length > 0 ? true: false, 
+        isReport: documentType.filter(x => { return x == "Report" }).length > 0 ? true: false, 
+        name: fDocumentName,
+        documentKind: filterWho,
+        documentBelongName: fDocumentBelongName
+      }
+      console.log("ffff",filter)
+      d = await AxiosPost("Document/GetAll", filter).then(x => { return x.data }).catch(x => { return x });
+    }else
+    { 
     if (isPageLoadData == false) {
       d = await AxiosPost("Document/GetAll", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
@@ -131,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
 
       }).then(x => { return x.data }).catch(x => { return x });
       debugger
-    }
+    }}
     var ll = listData;
 
     setTotalData(d.data?.totalCount)
@@ -276,13 +293,13 @@ const HomeScreen = ({ navigation }) => {
               <View style={{ backgroundColor: "white", marginLeft: 10, height: 50, width: "46%", fontSize: 11, flexDirection: "row" }} >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <Checkbox.Android onPress={() => { toggleDocumentTypeList("Certificate") }} color={`green`} status={documentType.filter(x => { return x == "Certificate" }).length > 0 ? 'unchecked' : "checked"} uncheckedColor={`grey`} ></Checkbox.Android>
+                  <Checkbox.Android onPress={() => { toggleDocumentTypeList("Certificate") }} color={`green`} status={documentType.filter(x => { return x == "Certificate" }).length > 0 ? 'checked' : "unchecked"} uncheckedColor={`grey`} ></Checkbox.Android>
                   <Text style={{ fontSize: 11 }}>{LangApp("Certificate")}</Text>
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <Checkbox.Android onPress={() => { toggleDocumentTypeList("Report") }} color={`green`} status={documentType.filter(x => { return x == "Report" }).length > 0 ? 'unchecked' : "checked"} uncheckedColor={`grey`} ></Checkbox.Android>
+                  <Checkbox.Android onPress={() => { toggleDocumentTypeList("Report") }} color={`green`} status={documentType.filter(x => { return x == "Report" }).length > 0 ? 'checked' : "unchecked"} uncheckedColor={`grey`} ></Checkbox.Android>
                   <Text style={{ fontSize: 11 }}>{LangApp("Report")}</Text>
                 </View>
                 {/* {Platform.OS === "ios"&&
@@ -298,18 +315,18 @@ const HomeScreen = ({ navigation }) => {
               <View style={{ backgroundColor: "white", marginLeft: 10, height: 50, width: "95%", fontSize: 11, flexDirection: "row", justifyContent: "space-around" }} >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <Checkbox.Android onPress={() => { toggleFilterWho("Person") }} color={`green`} status={filterWho.filter(x => { return x == "Person" }).length > 0 ? 'unchecked' : "checked"} uncheckedColor={`grey`} ></Checkbox.Android>
+                  <Checkbox.Android onPress={() => { toggleFilterWho("Person") }} color={`green`} status={filterWho.filter(x => { return x == "Person" }).length > 0 ? 'checked' : "unchecked"} uncheckedColor={`grey`} ></Checkbox.Android>
                   <Text>{LangApp("Person")}</Text>
                 </View>
 
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <Checkbox.Android onPress={() => { toggleFilterWho("Product") }} color={`green`} status={filterWho.filter(x => { return x == "Product" }).length > 0 ? 'unchecked' : "checked"} uncheckedColor={`grey`} ></Checkbox.Android>
+                  <Checkbox.Android onPress={() => { toggleFilterWho("Product") }} color={`green`} status={filterWho.filter(x => { return x == "Product" }).length > 0 ? 'checked' : "unchecked"} uncheckedColor={`grey`} ></Checkbox.Android>
                   <Text>{LangApp("Products")}</Text>
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
 
-                  <Checkbox.Android onPress={() => { toggleFilterWho("Company") }} color={`green`} status={filterWho.filter(x => { return x == "Company" }).length > 0 ? 'unchecked' : "checked"} uncheckedColor={`grey`} ></Checkbox.Android>
+                  <Checkbox.Android onPress={() => { toggleFilterWho("Company") }} color={`green`} status={filterWho.filter(x => { return x == "Company" }).length > 0 ? 'checked' : "unchecked"} uncheckedColor={`grey`} ></Checkbox.Android>
                   <Text>{LangApp("Companies")}</Text>
                 </View>
 
