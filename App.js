@@ -18,11 +18,12 @@ import CompaniesScreen from './pages/CompaniesScreen';
 import PersonScreens from './pages/PersonsScreen';
 import ProductScreen from './pages/ProductScreen';
 import { Avatar, Button } from 'react-native-paper';
-import LanguageContent from './components/LanguageContent';
+import PageRightContent from './components/PageRightContent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Localization from 'expo-localization';
 import { YellowBox } from 'react-native';
 import BarcodeScreen from './pages/BarcodeScreen';
+import LoginPages from './pages/LoginPages';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,14 +32,14 @@ function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{
+      screenOptions={({route, navigation}) => ({ 
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => (
-          <LanguageContent></LanguageContent>
+        headerTitleStyle: { fontWeight: 'bold' },
+        headerRight: (props) => (
+          <PageRightContent props={navigation}></PageRightContent>
       )
-      }}>
+      })}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -54,6 +55,11 @@ function HomeStack() {
         component={DetailsScreen}
         options={{ title: LangApp("Detail") }}
       />
+            <Stack.Screen
+        name="Login"
+        component={LoginPages}
+        options={{ title: 'Login' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -62,14 +68,14 @@ function CompaniesStack() {
   return (
     <Stack.Navigator
       initialRouteName="Settings"
-      screenOptions={{
+      screenOptions={({route, navigation}) => ({ 
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
-          headerRight: () => (
-            <LanguageContent></LanguageContent>
-        )
-      }}>
+        headerRight: (props) => (
+          <PageRightContent props={navigation}></PageRightContent>
+      )
+      })}>
       <Stack.Screen
         name="Settings"
         component={CompaniesScreen}
@@ -85,6 +91,11 @@ function CompaniesStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
+         <Stack.Screen
+        name="Login"
+        component={LoginPages}
+        options={{ title: 'Login' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -93,14 +104,14 @@ function PersonStack() {
   return (
     <Stack.Navigator
       initialRouteName="Person"
-      screenOptions={{
+      screenOptions={({route, navigation}) => ({ 
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
-        headerRight: () => (
-          <LanguageContent></LanguageContent>
+        headerRight: (props) => (
+          <PageRightContent props={navigation}></PageRightContent>
       )
-      }}>
+      })}>
       <Stack.Screen
         name="PersonScreens"
         component={PersonScreens}
@@ -116,6 +127,11 @@ function PersonStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
+         <Stack.Screen
+        name="Login"
+        component={LoginPages}
+        options={{ title: 'Login' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -125,14 +141,14 @@ function ProductStack() {
   return (
     <Stack.Navigator
       initialRouteName="Product"
-      screenOptions={{
+      screenOptions={({route, navigation}) => ({ 
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
-        headerRight: () => (
-          <LanguageContent></LanguageContent>
+        headerRight: (props) => (
+          <PageRightContent props={navigation}></PageRightContent>
       )
-      }}>
+      })}>
             <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}
@@ -148,6 +164,11 @@ function ProductStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
+         <Stack.Screen
+        name="Login"
+        component={LoginPages}
+        options={{ title: 'Login' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -157,14 +178,14 @@ function BarcodeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Barcode"
-      screenOptions={{
+      screenOptions={({route, navigation}) => ({ 
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
-        headerRight: () => (
-          <LanguageContent></LanguageContent>
+        headerRight: (props) => (
+          <PageRightContent props={navigation}></PageRightContent>
       )
-      }}>
+      })}>
             <Stack.Screen
         name="Barcode"
         component={BarcodeScreen}
@@ -181,6 +202,13 @@ function BarcodeStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
+            <Stack.Screen
+        name="Login"
+        component={LoginPages}
+        options={{ title: 'Login' }}
+      />
+
+
     </Stack.Navigator>
   );
 }
