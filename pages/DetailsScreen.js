@@ -69,6 +69,11 @@ const DetailsScreen = (props) => {
         <View style={{ flex: 5, flexDirection: "row", marginTop: 20 }}>
           <ScrollView style={{ flex: 1, flexDirection: "column" }}>
             <View style={{ flexDirection: "column" }}>
+              <View>
+                <TouchableOpacity>
+                  <Text>Başvur</Text>
+                </TouchableOpacity>
+              </View>
               <View style={{ alignSelf: "center" }}>
                 <Text style={{ fontWeight: "bold", fontSize: 17, color: "#ffa270" }}>{data.name}</Text>
               </View>
