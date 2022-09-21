@@ -129,7 +129,15 @@ const HomeScreen = ({ navigation }) => {
         documentKind: filterWho,
         documentBelongName: fDocumentBelongName
       }
-      console.log("ffff",filter)
+
+
+      if (!filter.documentBelongName&&!filter.documentNo&&!filter.fDocumentName) {
+         alert("Belge Adı, Belge Sahibi Adı yada Onay Numarası Giriniz.")
+         setTransData(false)
+         setDataLoading(false)
+         return false
+      }
+
       d = await AxiosPost("Document/GetAll", filter).then(x => { return x.data }).catch(x => { return x });
     }else
     { 

@@ -33,7 +33,7 @@ export const LGWord = {
     },
     DocumentDate: {
         en: { DocumentDate: 'Document Date' },
-        tr: { DocumentDate: 'Döküman Tarihi' },
+        tr: { DocumentDate: 'Onay Tarihi' },
     },
     Report: {
         en: { Report: 'Report' },
@@ -45,7 +45,7 @@ export const LGWord = {
     },
     DocumentNo: {
         en: { DocumentNo: 'Documnet No' },
-        tr: { DocumentNo: 'Dömüman No' },
+        tr: { DocumentNo: 'Onay No' },
     },
     Attachments: {
         en: { Attachments: 'Attachments' },
