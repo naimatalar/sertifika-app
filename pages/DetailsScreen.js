@@ -14,6 +14,7 @@ const DetailsScreen = (props) => {
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [application, setApplication] = React.useState(false);
+  const [selectedDocumentId, setSelectedDocumentId] = React.useState(false);
 
 
   React.useEffect(() => {
@@ -28,17 +29,18 @@ const DetailsScreen = (props) => {
     setLoading(false)
     setData(d.data)
     setLoading(false)
+    console.log(d)
 
   }
 
-  return (
+  return (<>
+
     <SafeAreaView style={{ flex: 1, flexDirection: "row" }}>
       <Provider>
         <Portal>
 
 
 
-          <DocumentApplication visible={application} hideModal={()=>{setApplication(false)}}></DocumentApplication>
           <Loading style={{ flex: 1, flexDirection: "column" }} Loading={loading}>
             <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid", flex: 1 }}>
               <View style={{ flex: 2, padding: 5 }}>
@@ -79,7 +81,7 @@ const DetailsScreen = (props) => {
               <ScrollView style={{ flex: 1, flexDirection: "column" }}>
                 <View style={{ flexDirection: "column" }}>
                   <View>
-                    <TouchableOpacity onPress={() => setApplication(!application)} style={{ backgroundColor: "#c5e1a5", padding: 10, marginBottom: 10 }}>
+                    <TouchableOpacity onPress={() => {setApplication(!application)}} style={{ backgroundColor: "#c5e1a5", padding: 10, marginBottom: 10 }}>
                       <Text style={{ fontWeight: "bold", textAlign: "center" }}>Başvur</Text>
                     </TouchableOpacity>
                   </View>
@@ -185,9 +187,12 @@ const DetailsScreen = (props) => {
             </View>
 
           </Loading>
+          <DocumentApplication visible={application} documentId={data.id} hideModal={()=>{setApplication(false)}}></DocumentApplication>
+
         </Portal>
       </Provider>
-    </SafeAreaView>
+    </SafeAreaView> 
+     </>
   );
 };
 export default DetailsScreen;

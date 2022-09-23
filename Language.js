@@ -159,6 +159,10 @@ export const LGWord = {
     },    FullName: {
         en: { FullName: 'Full Name' },
         tr: { FullName: 'Ad Soyad' },
+    },
+    OnlineApplicationForm: {
+        en: { OnlineApplicationForm: 'Online Application Form ' },
+        tr: { OnlineApplicationForm: 'Online Başvuru Formu' },
     }
 
 };
