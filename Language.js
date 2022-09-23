@@ -156,6 +156,9 @@ export const LGWord = {
     HideFilterDetail: {
         en: { HideFilterDetail: 'Hide Filter Detail' },
         tr: { HideFilterDetail: 'Detaylı Filtreyi Gizle' },
+    },    FullName: {
+        en: { FullName: 'Full Name' },
+        tr: { FullName: 'Ad Soyad' },
     }
 
 };
