@@ -4,10 +4,13 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Modal } from "react-native-paper";
 import { DevSettings } from 'react-native';
 import * as Updates from 'expo-updates';
+import { AxiosGet } from "../crud/crud";
 function PageRightContent(props) {
     const [flg, setFlg] = useState()
     const [showFlg, setShowGFlg] = useState(false)
-    const [loginModal, setLoginModal] = useState(false)
+    const [isLogin, setIsLogin] = useState(null)
+
+
 
     useEffect(() => { start() }, [])
     const start = async () => {
@@ -25,6 +28,16 @@ function PageRightContent(props) {
             setFlg(require("../assets/ing.png"))
 
         }
+
+        AsyncStorage.getItem("tkn_sertifika").then((x)=>{
+            if (x) {
+              AxiosGet("auth/tokencheck").then((y)=>{
+               console.log(y)
+              })
+            }else{
+                setIsLogin(null)
+            }
+        })
 
     }
 
