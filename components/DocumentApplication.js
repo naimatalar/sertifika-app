@@ -23,7 +23,7 @@ function DocumentApplication({ visible = false, hideModal,documentId}) {
                 alert("Lütfen alanları doldurunuz")
                 return false
             }
-            console.log(apdata)
+           
             await AxiosPost("DocumentApplication/create", apdata).then(x => {
                 alert("Başvuru Alındı. En kısa sürede işlemler başlartlıp tarafınıza bilgi verilecektir.")
                hideModal();

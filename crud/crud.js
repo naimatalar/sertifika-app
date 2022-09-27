@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Axios, { AxiosRequestConfig } from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // const baseUrl = 'http://10.0.2.2:45457/api/';
  const baseUrl = "http://37.148.212.29:8085/";
@@ -22,9 +23,10 @@ export const AxiosPost = async (url,data) => {
 }  
 export const AxiosGet = async (url,data) => {
     
-    var headers = { 
-        'Content-Type': 'application/Json'
-    }
+    var headers = {headers:{ 
+        'Content-Type': 'application/Json',
+        'Authorization':"Bearer " + await AsyncStorage.getItem("tkn_sertifika")
+    }}
     return await Axios.get(baseUrl+api+url, headers)
 
 }

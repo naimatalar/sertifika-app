@@ -24,6 +24,7 @@ import * as Localization from 'expo-localization';
 import { YellowBox } from 'react-native';
 import BarcodeScreen from './pages/BarcodeScreen';
 import LoginPages from './pages/LoginPages';
+import DocumentApplicationScreen from './pages/DocumentApplicationScreen';
 console.disableYellowBox = true;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -32,33 +33,39 @@ function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={({route, navigation}) => ({ 
+      screenOptions={({ route, navigation }) => ({
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerRight: (props) => (
           <PageRightContent props={navigation}></PageRightContent>
-      )
+        )
       })}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: "Sertifika"}}
+        options={{ title: "Sertifika" }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="DataDetails"
         component={DataDetail}
-        options={{ title: "Sertifika"}}
+        options={{ title: "Sertifika" }}
       />
       <Stack.Screen
         name="Details"
         component={DetailsScreen}
         options={{ title: LangApp("Detail") }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginPages}
         options={{ title: 'Login' }}
+      />
+
+      <Stack.Screen
+        name="DocumentApplication"
+        component={DocumentApplicationScreen}
+        options={{ title: 'Başvurular' }}
       />
     </Stack.Navigator>
   );
@@ -68,20 +75,20 @@ function CompaniesStack() {
   return (
     <Stack.Navigator
       initialRouteName="Settings"
-      screenOptions={({route, navigation}) => ({ 
+      screenOptions={({ route, navigation }) => ({
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerRight: (props) => (
           <PageRightContent props={navigation}></PageRightContent>
-      )
+        )
       })}>
       <Stack.Screen
         name="Settings"
         component={CompaniesScreen}
         options={{ title: LangApp("Companies") }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name="DetailsCompany"
         component={DataDetail}
         options={{ title: LangApp("Detail") }}
@@ -91,10 +98,16 @@ function CompaniesStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
-         <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginPages}
         options={{ title: 'Login' }}
+      />
+
+      <Stack.Screen
+        name="DocumentApplication"
+        component={DocumentApplicationScreen}
+        options={{ title: 'Başvurular' }}
       />
     </Stack.Navigator>
   );
@@ -104,30 +117,36 @@ function PersonStack() {
   return (
     <Stack.Navigator
       initialRouteName="Person"
-      screenOptions={({route, navigation}) => ({ 
+      screenOptions={({ route, navigation }) => ({
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerRight: (props) => (
           <PageRightContent props={navigation}></PageRightContent>
-      )
+        )
       })}>
       <Stack.Screen
         name="PersonScreens"
         component={PersonScreens}
         options={{ title: LangApp("Person") }}
       />
+
+      <Stack.Screen
+        name="DocumentApplication"
+        component={DocumentApplicationScreen}
+        options={{ title: 'Başvurular' }}
+      />
       <Stack.Screen
         name="PersonDetail"
         component={DataDetail}
-        options={{ title: LangApp("Detail")  }}
+        options={{ title: LangApp("Detail") }}
       />
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
-         <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginPages}
         options={{ title: 'Login' }}
@@ -141,20 +160,26 @@ function ProductStack() {
   return (
     <Stack.Navigator
       initialRouteName="Product"
-      screenOptions={({route, navigation}) => ({ 
+      screenOptions={({ route, navigation }) => ({
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerRight: (props) => (
           <PageRightContent props={navigation}></PageRightContent>
-      )
+        )
       })}>
-            <Stack.Screen
+      <Stack.Screen
         name="ProductScreen"
         component={ProductScreen}
-        options={{ title: "Sertifika"}}
+        options={{ title: "Sertifika" }}
       />
-        <Stack.Screen
+
+      <Stack.Screen
+        name="DocumentApplication"
+        component={DocumentApplicationScreen}
+        options={{ title: 'Başvurular' }}
+      />
+      <Stack.Screen
         name="DetailsProduct"
         component={DataDetail}
         options={{ title: LangApp("Detail") }}
@@ -164,7 +189,7 @@ function ProductStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
-         <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginPages}
         options={{ title: 'Login' }}
@@ -178,21 +203,26 @@ function BarcodeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Barcode"
-      screenOptions={({route, navigation}) => ({ 
+      screenOptions={({ route, navigation }) => ({
         headerStyle: { backgroundColor: '#393185' },
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold' },
         headerRight: (props) => (
           <PageRightContent props={navigation}></PageRightContent>
-      )
+        )
       })}>
-            <Stack.Screen
+      <Stack.Screen
         name="Barcode"
         component={BarcodeScreen}
-        options={{ title: "Sertifika"}}
+        options={{ title: "Sertifika" }}
       />
 
-            <Stack.Screen
+      <Stack.Screen
+        name="DocumentApplication"
+        component={DocumentApplicationScreen}
+        options={{ title: 'Başvurular' }}
+      />
+      <Stack.Screen
         name="DetailsDocument"
         component={DetailsScreen}
         options={{ title: LangApp("Detail") }}
@@ -202,7 +232,7 @@ function BarcodeStack() {
         component={ProfileScreen}
         options={{ title: 'Profile Page' }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginPages}
         options={{ title: 'Login' }}
@@ -217,19 +247,19 @@ function BarcodeStack() {
 
 function App() {
   console.disableYellowBox = false;
-  const[data,setData] =React.useState()
+  const [data, setData] = React.useState()
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="HomeStack"
-      
+
         tabBarOptions={{
           activeTintColor: '#ffa270',
         }}>
         <Tab.Screen
           name="HomeStack"
           component={HomeStack}
-          initialParams={{refreshApp:setData}}
+          initialParams={{ refreshApp: setData }}
           options={{
             tabBarLabel: 'Sertifika',
             tabBarIcon: ({ color, size }) => (
@@ -248,15 +278,15 @@ function App() {
                 color={color}
                 size={size}
               />
-              
+
             ),
           }}
         />
 
-      <Tab.Screen
+        <Tab.Screen
           name="BarcodeStack"
           component={BarcodeStack}
-          
+
           options={{
             tabBarLabel: '',
             tabBarIcon: ({ color, size }) => (
@@ -264,19 +294,21 @@ function App() {
                 name="barcode"
                 color={color}
                 size={40}
-                style={{backgroundColor:"#eeffff",padding:3,marginTop:-20,borderRadius:10,borderColor:"#3f51b5",borderWidth:1,borderStyle:"dashed",overflow:"hidden",shadowColor: "#0041e4",
-                shadowOffset: {
-                  width: 0,
-                  height: 6,
-                },
-                shadowOpacity:  0.21,
-                shadowRadius: 6.65,
-                elevation: 9}}
+                style={{
+                  backgroundColor: "#eeffff", padding: 3, marginTop: -20, borderRadius: 10, borderColor: "#3f51b5", borderWidth: 1, borderStyle: "dashed", overflow: "hidden", shadowColor: "#0041e4",
+                  shadowOffset: {
+                    width: 0,
+                    height: 6,
+                  },
+                  shadowOpacity: 0.21,
+                  shadowRadius: 6.65,
+                  elevation: 9
+                }}
               />
             ),
-            
+
           }}
-          
+
         />
         <Tab.Screen
           name="PersonStack"
@@ -290,14 +322,14 @@ function App() {
                 size={size}
               />
             ),
-          }} 
+          }}
         />
-        
+
         <Tab.Screen
           name="ProductStack"
           component={ProductStack}
           options={{
-            tabBarLabel:LangApp("Products"),
+            tabBarLabel: LangApp("Products"),
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="gift-open"

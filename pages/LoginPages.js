@@ -18,7 +18,7 @@ function LoginPages(props) {
     const [password, setPassword] = useState("");
     const login = async () => {
         var d = await AxiosPost("auth/login", { userName: email, password: password }).then(x => { return x.data }).catch(x => { return x });
-        console.log(d)
+        
         if (d.error) {
             alert("Girş Hatalı")
         }else{

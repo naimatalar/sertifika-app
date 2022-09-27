@@ -29,7 +29,7 @@ const DetailsScreen = (props) => {
     setLoading(false)
     setData(d.data)
     setLoading(false)
-    console.log(d)
+    
 
   }
 
