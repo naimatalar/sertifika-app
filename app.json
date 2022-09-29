@@ -21,7 +21,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan barcodes."
-      }
+      },
+      "bundleIdentifier": "turcert.app.application"
     },
     "android": {
       "adaptiveIcon": {

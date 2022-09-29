@@ -13,10 +13,10 @@ export const fileurl=baseUrl+"root/"
 export const AxiosPost = async (url,data) => { 
        debugger
     
-    var headers = { 
-        'Content-Type': 'application/Json'
-    }
-  
+       var headers = {headers:{ 
+        'Content-Type': 'application/Json',
+        'Authorization':"Bearer " + await AsyncStorage.getItem("tkn_sertifika")
+    }}
 
     return await Axios.post(baseUrl+api+url, data, headers)
 

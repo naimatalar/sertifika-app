@@ -18,7 +18,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AxiosPost, fileurl } from '../crud/crud';
 import { TextInput } from 'react-native-paper';
 import LangApp from '../Language';
- 
+
 const DocumentApplicationScreen = (props) => {
   const [companyName, setCompanyName] = React.useState("")
   const [isDatesPickerVisible, setDatesPickerVisibility] = React.useState(false);
@@ -43,21 +43,22 @@ const DocumentApplicationScreen = (props) => {
     setTransData(true)
     setDataLoading(true)
 
-    var d = []
+    var d = {}
     if (isPageLoadData == false) {
-      d = await AxiosPost("Company/search", {
+      d = await AxiosPost("DocumentApplication/GetAllMobil", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
         "name": companyName,
 
       }).then(x => { return x.data }).catch(x => { return x });
     } else {
-      d = await AxiosPost("Company/GetAllMobil", {
+      d = await AxiosPost("DocumentApplication/GetAllMobil", {
         "pageNumber": first == true ? 1 : pageNumber + 1,
         "pageSize": 10,
 
       }).then(x => { return x.data }).catch(x => { return x });
     }
+    console.log(d)
     var ll = listData;
     setTotalData(d.data.totalCount)
 
@@ -97,7 +98,7 @@ const DocumentApplicationScreen = (props) => {
 
       <View style={{ flex: 2, flexDirection: "column", justifyContent: 'center', paddingBottom: 30, paddingTop: 20, backgroundColor: "#e8eaf6", borderBottomColor: "#a094b7", borderBottomWidth: 1, borderStyle: "solid" }}>
         {/* <View style={{ marginLeft: 10, marginRight: 10, marginTop: 20, marginBottom: 10 }}><Text style={{ color: "#393185", textAlign: "center", fontWeight: "bold", marginTop: 20 }}>Tarihe Göre Sertifika/Rapor Arama </Text></View> */}
-        <Text style={{ textAlign: "center",fontWeight:"bold" }}>{LangApp("EnterCompanyName")}</Text>
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>Başuvuruyu Yapan Kişinin Adı ile Arama</Text>
         <View style={{ flexDirection: 'row' }}>
 
 
@@ -183,29 +184,33 @@ const DocumentApplicationScreen = (props) => {
               if (item.productName != null) {
                 fppName = item.productName
               }
-            //   var dimgN = item.documnetKind;
-            //  console.log(dimgN)
+              //   var dimgN = item.documnetKind;
+              //  console.log(dimgN)
               return (
 
-                <View key={key} style={{minHeight:65, flexDirection: "row", flex: 1, marginBottom: 10, backgroundColor: "white",borderTopWidth:1,borderBottomWidth:1,borderColor:"#d8672b",borderWidth:1 }}> 
-                  <View style={{ flexDirection: "row", alignItems: "center", flex: 2, padding: 5 }}>
-                   <Image source={{ uri: fileurl + "upload/" + item?.logoUrl }} style={{width:"100%",height:"100%",minHeight:40,resizeMode:"contain"}}></Image>
+                <View key={key} style={{ minHeight: 65, flexDirection: "row", flex: 1, marginBottom: 10, backgroundColor: "white", borderTopWidth: 1, borderBottomWidth: 1, borderColor: "#d8672b", borderWidth: 1 }}>
+                  <View style={{ flexDirection: "column", alignItems: "center", justifyContent:"center", flex: 4, padding: 5 }}>
+                    <Text style={{ textAlign: "center",fontWeight:"bold" }}>{item.fullName}</Text>
+                    <Text style={{ textAlign: "center",fontSize:9 }}>{item.mail}</Text>
+
                   </View>
                   <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", flex: 4, padding: 5 }}>
-                    <Text style={{ textAlign: "center" }}>{item.name}</Text>
+                    <Text style={{ textAlign: "center", fontWeight:"bold"}}>{item.phone}</Text>
+                    <Text style={{ textAlign: "center",fontStyle:"italic" }}>{new Date(item.createDate).getDate()+"/"+new Date(item.createDate).getMonth()+"/"+new Date(item.createDate).getFullYear()}</Text>
+
                   </View>
 
-              
-                  <TouchableOpacity onPress={() => { props.navigation.navigate("DetailsCompany",{id:item.id,documnetKind:2}) }} style={{ flexDirection: "column", justifyContent: "center", flex: 2, alignItems: "center", backgroundColor: "#d8672b" }}>
 
-                    <MaterialCommunityIcons
+                  <View style={{ flexDirection: "column", justifyContent: "center", flex: 3, alignItems: "center", backgroundColor: (item.status==1&& "#e4a300" || item.status==2&& "green"||item.status==3&&"red" ) }}>
+
+                    {/* <MaterialCommunityIcons
                       name="magnify"
                       size={20}
                       color="white"
                       style={{ textAlign: 'right' }}
-                    />
-                    <Text style={{color:"white",fontWeight:"bold"}}>{LangApp("Detail")}</Text>
-                  </TouchableOpacity>
+                    /> */}
+                    <Text style={{ color: "white", fontWeight: "bold" }}>{(item.status==1&& "Bekleniyor" || item.status==2&& "Onaylandı"||item.status==3&&"Onaylanmadı" )}</Text>
+                  </View>
 
                 </View>
               )
