@@ -15,7 +15,8 @@ function DocumentApplication({ visible = false, hideModal,documentId}) {
             "fullName": fullName,
             "mail": mail,
             "posta": "",
-            "phone": phone
+            "phone": phone,
+            "isMobil":true
         }
 
 
